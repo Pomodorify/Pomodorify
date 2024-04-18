@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Statistics"
+        android:icon="@drawable/statistics"
+        android:id="@+id/statistics"/>
+    <item android:title="Pomodoro"
+        android:icon="@drawable/timer"
+        android:id="@+id/pomodoro" />
+    <item android:title="Settings"
+        android:icon="@drawable/settings"
+        android:id="@+id/settings"/>
+</menu>

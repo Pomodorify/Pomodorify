@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pomodoro">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/timeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Timer"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/startStop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="50sp"
+        android:layout_marginRight="50sp"
+        android:layout_marginBottom="150sp"
+        android:text="Start" />
+
+    <EditText
+        android:id="@+id/activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150sp"
+        android:hint="Activity Type"
+        android:textAlignment="center" />
+
+    <RadioGroup
+        android:id="@+id/selectType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200sp"
+        android:checkedButton="@id/FocusButton"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/FocusButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Focus"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/sBreakButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Short Break"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/lBreakButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Long Break"
+            android:textAlignment="center" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/pauseButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="400sp"
+        android:layout_marginRight="50sp"
+        android:enabled="false"
+        android:text="Pause" />
+
+</FrameLayout>
