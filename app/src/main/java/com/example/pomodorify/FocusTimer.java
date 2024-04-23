@@ -8,11 +8,18 @@ public class FocusTimer extends Timer{
     private final int minutes;
     private InsertStatistics insertStatistics;
 
-    FocusTimer(){
-        minutes = 0;
+    FocusTimer(long millisInFuture, long countDownInterval, TextView timeLeft, InsertStatistics insertStatistics, String activityLabel){
+        super(millisInFuture, countDownInterval, timeLeft);
+        this.minutes = (int)millisInFuture / 1000;
+        this.insertStatistics = insertStatistics;
+        this.activityLabel = activityLabel;
     }
 
-    FocusTimer(long millisInFuture, long countDownInterval, TextView timeLeft, InsertStatistics insertStatistics, String activityLabel){
-        minutes = 0;
+    @Override
+    public void onFinish() {
+        //timer focus wiec musi wstawic statystyki
+        insertStatistics.insertStatistics(minutes, activityLabel);
+
+        super.onFinish();//wywolaj metode z timer
     }
 }

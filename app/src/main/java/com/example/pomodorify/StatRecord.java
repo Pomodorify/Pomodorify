@@ -1,5 +1,7 @@
 package com.example.pomodorify;
 
+import androidx.annotation.NonNull;
+
 public class StatRecord {
     long id;
     long time;//dlugosc trwania
@@ -13,8 +15,19 @@ public class StatRecord {
         this.activity = activity;
     }
 
+    @NonNull
     @Override
     public String toString() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Duration:" + time + "\n");
+        sb.append("Date:" + Utility.convertTimestampToDate(date) + "\n");
+
+        if(activity.equals(""))
+            sb.append("Activity: unspecified" + "\n");
+        else
+            sb.append("Activity:" + activity + "\n");
+
+        return sb.toString();
     }
 }

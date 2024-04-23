@@ -123,7 +123,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
 /*
     TODO:
-    - na kursory napewno zamkykamy: cursor.close(), baze danych nie koniecznie db.close()
+    - kursory napewno zamykamy (cursor.close()), baze danych nie koniecznie (db.close())
     - z dokumentacji :   Since getWritableDatabase() and getReadableDatabase() are expensive to call when the
      database is closed, you should leave your database connection open for as long as you possibly need to access it.
  */
