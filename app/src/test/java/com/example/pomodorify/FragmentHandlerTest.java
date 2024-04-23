@@ -57,7 +57,6 @@ public class FragmentHandlerTest {
 
     @Test
     public void testReplaceFragment() {
-        fragmentManager.executePendingTransactions();
 
         fragmentHandler.replaceFragment(settings); // to testujemy
 

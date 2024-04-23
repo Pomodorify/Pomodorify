@@ -2,6 +2,7 @@ package com.example.pomodorify;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class FragmentHandler {
@@ -19,18 +20,24 @@ public class FragmentHandler {
     }
 
     public Fragment getStatisticsFragment(){
-        return null;
+        return statistics;
     }
-    
+
     public Fragment getPomodoroFragment(){
-        return null;
+        return pomodoro;
     }
 
     public Fragment getSettingsFragment(){
-        return null;
+        return settings;
     }
 
-    public void replaceFragment(Fragment fragment){
-
+    public void replaceFragment(Fragment fragment){//np. dostaje statystyki i zmienia sobie
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }
+
+//TODO: Mozna zrobic tak ze fragmenty ladujemy tylko raz i potem korzystamy z hide/show zamiast replace
+//TODO: wtedy nie trzeba tez za kazdym razem ladowac statystyk z bazy danych, statystyki zaladujemy tylko
+//TODO: na poczatku oraz po tym jak powiadomi nas o tym observer pattern
