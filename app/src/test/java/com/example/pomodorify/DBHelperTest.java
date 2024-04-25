@@ -72,7 +72,7 @@ public class DBHelperTest {
 
     @Test
     public void getDefaultFocusTimeTest() {
-        assertEquals(dbHelper.getFocusTime(), 45);
+        assertEquals(dbHelper.getFocusTime(), 10);
     }
 
     @Test

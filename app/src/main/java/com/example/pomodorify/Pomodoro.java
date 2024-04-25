@@ -95,6 +95,14 @@ public class Pomodoro extends Fragment{
             }
         });
 
+        Button continueButton = view.findViewById(R.id.pauseButton);
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseTimer();
+            }
+        });
+
         GetTimes getTimes = new DBHelper(getActivity());
         int time = getTimes.getFocusTime();
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
@@ -170,6 +178,8 @@ public class Pomodoro extends Fragment{
 
         enableButtons();
 
+        Button continueButton = getActivity().findViewById(R.id.pauseButton);
+        continueButton.setText("Pause");
 
         //zaaktualizuj timer, np. wpisz 25 jesli wybrany focus
         int selectedId = getSelectedRadioId(radioGroup);
@@ -247,5 +257,17 @@ public class Pomodoro extends Fragment{
         return radioButton.getId();
     }
 
-
+    private void pauseTimer(){
+        if(timer != null){
+            if(!timer.isCancelled()){
+                timer.cancel();
+                Button continueButton = getActivity().findViewById(R.id.pauseButton);
+                continueButton.setText("Resume");
+            }else{
+                timer.resume();
+                Button continueButton = getActivity().findViewById(R.id.pauseButton);
+                continueButton.setText("Pause");
+            }
+        }
+    }
 }

@@ -32,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         //insert default timer values
         ContentValues values = new ContentValues();
         String[][] data = {
-                {"focus", "45"},
+                {"focus", "10"},
                 {"shortBreak", "5"},
                 {"longBreak", "15"}
         };

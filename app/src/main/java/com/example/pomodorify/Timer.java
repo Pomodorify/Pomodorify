@@ -2,21 +2,20 @@ package com.example.pomodorify;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.CountDownTimer;
+//import android.os.CountDownTimer;
 import android.widget.TextView;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.os.Message;
 
 import java.util.concurrent.TimeUnit;
 
 public class Timer extends CountDownTimer {
 
     protected NotifyPomodoro listener;//tylko foucstimer lub braektimer moga z tego skorzystac bo protected
-    private TextView timeLeft;
+    protected TextView timeLeft;
 
-    public Timer(){
-        super(1000,1000);
-        this.listener = null;
-        this.timeLeft = null;
-    };
+    private long mPauseTime;//do ponownego uruchomienia timera
 
     public void setCustomObjectListener(NotifyPomodoro listener) {
         this.listener = listener;
@@ -39,5 +38,28 @@ public class Timer extends CountDownTimer {
         //timer break wiec nie wstawia statystyk
         if (listener != null)//powiadom pomodor o tym ze przestales liczyc
             listener.onFinish();
+    }
+
+    //Those methods extend/modify CountDownTimer so that we can resume timer:
+
+    @Override
+    public synchronized void cancel() {
+        super.cancel();
+        mPauseTime = mStopTimeInFuture - SystemClock.elapsedRealtime();//save time
+    }
+
+    public synchronized final CountDownTimer resume() {
+        mCancelled = false;
+        if (mMillisInFuture <= 0) {
+            onFinish();
+            return this;
+        }
+        mStopTimeInFuture = mPauseTime + SystemClock.elapsedRealtime();
+        mHandler.sendMessage(mHandler.obtainMessage(MSG));
+        return this;
+    }
+
+    public boolean isCancelled(){
+        return mCancelled;
     }
 }
