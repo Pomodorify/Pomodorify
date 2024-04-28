@@ -9,6 +9,119 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
+        android:id="@+id/focusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Focus Timer length (minutes)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SoundEffects" />
+
+    <SeekBar
+        android:id="@+id/FocusBar"
+        android:layout_width="294dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="12dp"
+        android:max="119"
+        android:progress="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/focusText" />
+
+    <TextView
+        android:id="@+id/focusMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="120"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toEndOf="@+id/FocusBar"
+        app:layout_constraintTop_toTopOf="@+id/FocusBar" />
+
+    <TextView
+        android:id="@+id/focusDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FocusBar" />
+
+    <TextView
+        android:id="@+id/focusMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="1"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/FocusBar"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/FocusBar" />
+
+    <SeekBar
+        android:id="@+id/LongBar"
+        android:layout_width="300dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="16dp"
+        android:max="45"
+        android:progress="15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longText" />
+
+    <TextView
+        android:id="@+id/longMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="15"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/LongBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/LongBar" />
+
+    <TextView
+        android:id="@+id/longText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Long Break length (minutes)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shortDuration" />
+
+    <TextView
+        android:id="@+id/longDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LongBar" />
+
+    <TextView
+        android:id="@+id/longMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="60"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toEndOf="@+id/LongBar"
+        app:layout_constraintTop_toTopOf="@+id/LongBar" />
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,76 +132,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/themeSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="64dp"
-        android:text="Switch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ToggleButton
-        android:id="@+id/NotisSessionFinished"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="64dp"
-        android:text="Notification after finishing"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NotisBar" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="Notification after session"
-        app:layout_constraintEnd_toStartOf="@+id/NotisSessionFinished"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Dark Theme"
-        app:layout_constraintEnd_toStartOf="@+id/themeSwitch"
-        app:layout_constraintHorizontal_bias="0.409"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ToggleButton
-        android:id="@+id/SoundEffects"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="64dp"
-        android:text="Sound effects"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NotisSessionFinished" />
-
-    <ToggleButton
-        android:id="@+id/NotisBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="64dp"
-        android:text="Notifications during timing"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/themeSwitch" />
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="48dp"
         android:text="Sound effects"
         app:layout_constraintEnd_toStartOf="@+id/SoundEffects"
-        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintHorizontal_bias="0.383"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -96,55 +147,130 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="48dp"
         android:text="Notification bar"
         app:layout_constraintEnd_toStartOf="@+id/NotisBar"
         app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/FocusLength"
+    <ToggleButton
+        android:id="@+id/NotisBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="Focus Timer length (minutes)"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="64dp"
+        android:text="Notifications during timing"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/themeSwitch" />
+
+    <Switch
+        android:id="@+id/themeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:text="Switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ToggleButton
+        android:id="@+id/SoundEffects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="64dp"
+        android:text="Sound effects"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NotisSessionFinished" />
+
+    <ToggleButton
+        android:id="@+id/NotisSessionFinished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="64dp"
+        android:text="Notification after finishing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NotisBar" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Dark Theme"
+        app:layout_constraintEnd_toStartOf="@+id/themeSwitch"
+        app:layout_constraintHorizontal_bias="0.409"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Notification after session"
+        app:layout_constraintEnd_toStartOf="@+id/NotisSessionFinished"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="173dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="24dp"
-        android:max="120"
-        android:progress="30"
+        android:id="@+id/ShortBar"
+        android:layout_width="298dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="16dp"
+        android:max="14"
+        android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FocusLength" />
+        app:layout_constraintTop_toBottomOf="@+id/shortText" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/shortMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="0"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar"
-        app:layout_constraintHorizontal_bias="0.443"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FocusLength" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="120"
+        android:layout_marginTop="4dp"
+        android:text="15"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/seekBar"
-        app:layout_constraintTop_toBottomOf="@+id/FocusLength" />
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toEndOf="@+id/ShortBar"
+        app:layout_constraintTop_toTopOf="@+id/ShortBar" />
+
+    <TextView
+        android:id="@+id/shortDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ShortBar" />
+
+    <TextView
+        android:id="@+id/shortText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Short Break length (minutes)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/focusDuration" />
+
+    <TextView
+        android:id="@+id/shortMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="1"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/ShortBar"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ShortBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
