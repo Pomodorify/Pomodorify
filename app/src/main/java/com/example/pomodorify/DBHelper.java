@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes {
+public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes {
 
     public static final String TABLE_NAME = "Statistics";
     public static final String STAT_ID = "id";
@@ -119,6 +119,19 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         cursor.close();
         return returnVal;
     }
+
+    public void ChangeFocus(int minutes) {
+
+    }
+
+    public void ChangeShortBreak(int minutes) {
+
+    }
+    public void ChangeLongBreak(int minutes) {
+
+    }
+
+
 }
 
 /*

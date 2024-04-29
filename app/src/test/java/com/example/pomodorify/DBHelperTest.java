@@ -84,4 +84,22 @@ public class DBHelperTest {
     public void getDefaultShortBreakTimeTest() {
         assertEquals(dbHelper.getShortBreakTime(), 5);
     }
+
+    @Test
+    public void setFocusTest(){
+        dbHelper.ChangeFocus(101);
+        assertEquals(dbHelper.getFocusTime(), 101);
+    }
+
+    @Test
+    public void setShortBreakTest(){
+        dbHelper.ChangeShortBreak(15);
+        assertEquals(dbHelper.getShortBreakTime(), 15);
+    }
+
+    @Test
+    public void setLongBreakTest(){
+        dbHelper.ChangeFocus(27);
+        assertEquals(dbHelper.getLongBreakTime(), 27);
+    }
 }
