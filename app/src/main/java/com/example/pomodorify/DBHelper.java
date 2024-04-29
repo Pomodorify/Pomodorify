@@ -130,14 +130,38 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
     }
 
     public void ChangeFocus(int minutes) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(PARAM_LEN, minutes);
+
+        String selection = PARAM_ID + " LIKE ?";
+        String[] selectionArgs = { focusKey };
+
+        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
     }
 
     public void ChangeShortBreak(int minutes) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(PARAM_LEN, minutes);
+
+        String selection = PARAM_ID + " LIKE ?";
+        String[] selectionArgs = { shortBreakKey };
+
+        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
     }
     public void ChangeLongBreak(int minutes) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(PARAM_LEN, minutes);
+
+        String selection = PARAM_ID + " LIKE ?";
+        String[] selectionArgs = { longBreakKey };
+
+        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
     }
 
 

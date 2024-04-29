@@ -99,7 +99,7 @@ public class DBHelperTest {
 
     @Test
     public void setLongBreakTest(){
-        dbHelper.ChangeFocus(27);
+        dbHelper.ChangeLongBreak(27);
         assertEquals(dbHelper.getLongBreakTime(), 27);
     }
 }
