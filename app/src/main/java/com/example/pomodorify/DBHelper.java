@@ -11,12 +11,21 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes {
 
-    public static final String TABLE_NAME = "Statistics";
+    //fields used for statistics
+    public static final String STAT_TABLE_NAME = "Statistics";
     public static final String STAT_ID = "id";
     public static final String STAT_TIME = "time";
     public static final String STAT_DATE = "date";//W jakim dniu bylo robione pomodoro
-
     public static final String STAT_ACT = "activity";
+
+    //fields used for timers length
+    public static final String PARAM_TABLE_NAME = "TimeParameters";
+    public static final String PARAM_ID = "id";
+    public static final String PARAM_LEN = "minutes";
+
+    public static final String focusKey = "focus";
+    public static final String shortBreakKey = "shortBreak";
+    public static final String longBreakKey = "longBreak";
 
 
 
@@ -25,30 +34,30 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + DBHelper.TABLE_NAME + " (" + DBHelper.STAT_ID + " INTEGER PRIMARY KEY, "
+        db.execSQL("CREATE TABLE " + DBHelper.STAT_TABLE_NAME + " (" + DBHelper.STAT_ID + " INTEGER PRIMARY KEY, "
                 + DBHelper.STAT_TIME + " INTEGER, " + DBHelper.STAT_DATE + " INTEGER, " + DBHelper.STAT_ACT + " TEXT)");
-        db.execSQL("CREATE TABLE TimeParameters (id TEXT PRIMARY KEY, minutes INTEGER)");//rodzaj i dlugosc trwania timera
+        db.execSQL("CREATE TABLE " + PARAM_TABLE_NAME + " (" + PARAM_ID + " TEXT PRIMARY KEY, " + PARAM_LEN + " INTEGER)");//rodzaj i dlugosc trwania timera
 
         //insert default timer values
         ContentValues values = new ContentValues();
         String[][] data = {
-                {"focus", "10"},
-                {"shortBreak", "5"},
-                {"longBreak", "15"}
+                {focusKey, "10"},
+                {shortBreakKey, "5"},
+                {longBreakKey, "15"}
         };
 
         for (String[] row : data) {
             values.clear();
-            values.put("id", row[0]);
-            values.put("minutes", row[1]);
-            db.insert("TimeParameters", null, values);
+            values.put(PARAM_ID, row[0]);
+            values.put(PARAM_LEN, row[1]);
+            db.insert(PARAM_TABLE_NAME, null, values);
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DBHelper.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS TimeParameters");
+        db.execSQL("DROP TABLE IF EXISTS " + STAT_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PARAM_TABLE_NAME);
     }
 
     public boolean insertStatistics(int time, String activity){
@@ -59,7 +68,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         values.put(DBHelper.STAT_DATE, System.currentTimeMillis());
         values.put(DBHelper.STAT_ACT, activity);
 
-        long result = db.insert(DBHelper.TABLE_NAME, null, values);
+        long result = db.insert(DBHelper.STAT_TABLE_NAME, null, values);
 
         if(result == -1)
             return false;
@@ -69,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public List<StatRecord> getStatisticsData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(DBHelper.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = db.query(DBHelper.STAT_TABLE_NAME, null, null, null, null, null, null);
 
         List<StatRecord> list = new LinkedList<>();
 
@@ -83,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getFocusTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT minutes FROM TimeParameters WHERE id=?", new String[]{"focus"});
+        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{focusKey});
 
         int returnVal = -1;
 
@@ -96,7 +105,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getShortBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT minutes FROM TimeParameters WHERE id=?", new String[]{"shortBreak"});
+        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{shortBreakKey});
 
         int returnVal = -1;
 
@@ -109,7 +118,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getLongBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT minutes FROM TimeParameters WHERE id=?", new String[]{"longBreak"});
+        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{longBreakKey});
 
         int returnVal = -1;
 
