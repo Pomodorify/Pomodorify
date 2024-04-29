@@ -28,9 +28,10 @@ public class Settings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         GetTimes getTimes = new DBHelper(getActivity());
+        ChangeTimes changeTimes = new DBHelper(getActivity());
 
         //ustawienie dlugosci timera focus
-        SeekBar focusBar = view.findViewById(R.id.FocusBar);
+        SeekBar focusBar = view.findViewById(R.id.focusBar);
         TextView focusDuration = view.findViewById(R.id.focusDuration);
         int focusTime = getTimes.getFocusTime();
         focusBar.setProgress(focusTime - 1);
@@ -49,11 +50,12 @@ public class Settings extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //wyslij do bazy danych
+                changeTimes.ChangeFocus(focusBar.getProgress() + 1);
             }
         });
 
         //ustawienie dlugosci timera shortbreak
-        SeekBar shortBar = view.findViewById(R.id.ShortBar);
+        SeekBar shortBar = view.findViewById(R.id.shortBar);
         TextView shortDuration = view.findViewById(R.id.shortDuration);
         int shortTime = getTimes.getShortBreakTime();
         shortBar.setProgress(shortTime - 1);
@@ -72,11 +74,12 @@ public class Settings extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //wyslij do bazy danych
+                changeTimes.ChangeShortBreak(shortBar.getProgress() + 1);
             }
         });
 
         //ustawienie dlugosci timera long break
-        SeekBar longBar = view.findViewById(R.id.LongBar);
+        SeekBar longBar = view.findViewById(R.id.longBar);
         TextView longDuration = view.findViewById(R.id.longDuration);
         int longTime = getTimes.getLongBreakTime();
         longBar.setProgress(longTime - 15);
@@ -95,6 +98,7 @@ public class Settings extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //wyslij do bazy danych
+                changeTimes.ChangeLongBreak(longBar.getProgress() + 15);
             }
         });
 

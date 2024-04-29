@@ -20,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@+id/SoundEffects" />
 
     <SeekBar
-        android:id="@+id/FocusBar"
+        android:id="@+id/focusBar"
         android:layout_width="294dp"
         android:layout_height="29dp"
         android:layout_marginTop="12dp"
@@ -39,8 +39,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/FocusBar"
-        app:layout_constraintTop_toTopOf="@+id/FocusBar" />
+        app:layout_constraintStart_toEndOf="@+id/focusBar"
+        app:layout_constraintTop_toTopOf="@+id/focusBar" />
 
     <TextView
         android:id="@+id/focusDuration"
@@ -50,7 +50,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FocusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/focusBar" />
 
     <TextView
         android:id="@+id/focusMin"
@@ -59,13 +59,13 @@
         android:layout_marginTop="4dp"
         android:text="1"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/FocusBar"
+        app:layout_constraintEnd_toStartOf="@+id/focusBar"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/FocusBar" />
+        app:layout_constraintTop_toTopOf="@+id/focusBar" />
 
     <SeekBar
-        android:id="@+id/LongBar"
+        android:id="@+id/longBar"
         android:layout_width="300dp"
         android:layout_height="29dp"
         android:layout_marginTop="16dp"
@@ -83,9 +83,9 @@
         android:layout_marginTop="8dp"
         android:text="15"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/LongBar"
+        app:layout_constraintEnd_toStartOf="@+id/longBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/LongBar" />
+        app:layout_constraintTop_toTopOf="@+id/longBar" />
 
     <TextView
         android:id="@+id/longText"
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LongBar" />
+        app:layout_constraintTop_toBottomOf="@+id/longBar" />
 
     <TextView
         android:id="@+id/longMax"
@@ -118,8 +118,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.548"
-        app:layout_constraintStart_toEndOf="@+id/LongBar"
-        app:layout_constraintTop_toTopOf="@+id/LongBar" />
+        app:layout_constraintStart_toEndOf="@+id/longBar"
+        app:layout_constraintTop_toTopOf="@+id/longBar" />
 
     <TextView
         android:id="@+id/textView"
@@ -217,7 +217,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <SeekBar
-        android:id="@+id/ShortBar"
+        android:id="@+id/shortBar"
         android:layout_width="298dp"
         android:layout_height="28dp"
         android:layout_marginTop="16dp"
@@ -237,8 +237,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/ShortBar"
-        app:layout_constraintTop_toTopOf="@+id/ShortBar" />
+        app:layout_constraintStart_toEndOf="@+id/shortBar"
+        app:layout_constraintTop_toTopOf="@+id/shortBar" />
 
     <TextView
         android:id="@+id/shortDuration"
@@ -248,7 +248,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ShortBar" />
+        app:layout_constraintTop_toBottomOf="@+id/shortBar" />
 
     <TextView
         android:id="@+id/shortText"
@@ -268,9 +268,9 @@
         android:layout_marginTop="12dp"
         android:text="1"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/ShortBar"
+        app:layout_constraintEnd_toStartOf="@+id/shortBar"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ShortBar" />
+        app:layout_constraintTop_toTopOf="@+id/shortBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
