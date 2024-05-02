@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavHandler bottomNavHandler = new BottomNavHandler(new FragmentHandler(new Statistics(), new Pomodoro(), new Settings(), getSupportFragmentManager()), binding);
         bottomNavHandler.setDefaultSettings();
 
+
         //this.deleteDatabase("Pomodorify.db");
 
     }
