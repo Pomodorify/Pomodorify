@@ -1,5 +1,6 @@
 package com.example.pomodorify;
 
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,8 @@ public class TimerTest {
     public void setUp() {
         mockTextView = mock(TextView.class);
         mockListener = mock(NotifyPomodoro.class);
-        timer = new Timer(10000, 1000, mockTextView);
+        ProgressBar progressBarMock = mock(ProgressBar.class);
+        timer = new Timer(10000, 1000, mockTextView, progressBarMock);
         timer.setCustomObjectListener(mockListener);
     }
 
