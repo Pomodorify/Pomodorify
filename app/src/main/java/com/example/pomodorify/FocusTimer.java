@@ -1,5 +1,6 @@
 package com.example.pomodorify;
 
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class FocusTimer extends Timer{
@@ -8,8 +9,8 @@ public class FocusTimer extends Timer{
     private final int minutes;
     private InsertStatistics insertStatistics;
 
-    FocusTimer(long millisInFuture, long countDownInterval, TextView timeLeft, InsertStatistics insertStatistics, String activityLabel){
-        super(millisInFuture, countDownInterval, timeLeft);
+    FocusTimer(long millisInFuture, long countDownInterval, TextView timeLeft, InsertStatistics insertStatistics, String activityLabel, ProgressBar progressBar){
+        super(millisInFuture, countDownInterval, timeLeft, progressBar);
         this.minutes = (int)millisInFuture / 1000;
         this.insertStatistics = insertStatistics;
         this.activityLabel = activityLabel;

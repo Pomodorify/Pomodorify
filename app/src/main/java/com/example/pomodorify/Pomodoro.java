@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class Pomodoro extends Fragment{
     private RadioGroup radioGroup;
 
     private MediaPlayer mediaPlayer;//efekt dzwiekowy po zakonczeniu sesji
+
+    private ProgressBar progressBar;//do odliczania czasu
 
     public Pomodoro() {
         // Required empty public constructor
@@ -111,6 +114,10 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getFocusTime();
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
 
+        //znajdz progress bar
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setMax(time);//potem trzeba dodac *60 jesli zmienimy z odliczania sekund na minuty
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -133,10 +140,10 @@ public class Pomodoro extends Fragment{
                 EditText activity = getActivity().findViewById(R.id.activity);
                 String activityLabel = activity.getText().toString();
 
-                timer = new FocusTimer(minutes * 1000, 1000, timeLeft, insertStatistics, activityLabel);
+                timer = new FocusTimer(minutes * 1000, 1000, timeLeft, insertStatistics, activityLabel, progressBar);
             }
             else//jesli sesja break
-                timer = new Timer(minutes * 1000, 1000, timeLeft);
+                timer = new Timer(minutes * 1000, 1000, timeLeft, progressBar);
 
             timer.setCustomObjectListener(new NotifyPomodoro(){
                 @Override
@@ -191,6 +198,9 @@ public class Pomodoro extends Fragment{
         int time = getMinutesDatabase(selectedId);
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
+
+        //ustaw progressBar na 0
+        progressBar.setProgress(0);
     }
 
     private void disableButtons(){
@@ -231,6 +241,7 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getFocusTime();
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        progressBar.setMax(time);
     }
 
     public void setLongBreak(){
@@ -238,6 +249,7 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getLongBreakTime();
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        progressBar.setMax(time);
     }
 
     public void setShortBreak(){
@@ -245,6 +257,7 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getShortBreakTime();
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        progressBar.setMax(time);
     }
 
     private void enablePauseButton(){

@@ -3,6 +3,7 @@ package com.example.pomodorify;
 import android.app.Activity;
 import android.content.Context;
 //import android.os.CountDownTimer;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -15,22 +16,26 @@ public class Timer extends CountDownTimer {
     protected NotifyPomodoro listener;//tylko foucstimer lub braektimer moga z tego skorzystac bo protected
     protected TextView timeLeft;
 
+    protected ProgressBar progressBar;
+
     private long mPauseTime;//do ponownego uruchomienia timera
 
     public void setCustomObjectListener(NotifyPomodoro listener) {
         this.listener = listener;
     }
 
-    public Timer(long millisInFuture, long countDownInterval, TextView timeLeft) {
+    public Timer(long millisInFuture, long countDownInterval, TextView timeLeft, ProgressBar progressBar) {
         super(millisInFuture, countDownInterval);
         this.listener = null;
         this.timeLeft = timeLeft;
+        this.progressBar = progressBar;
     }
 
     @Override
     public void onTick(long millisUntilFinished) {
         String time = Utility.formatMillis(millisUntilFinished);
         timeLeft.setText(time);
+        progressBar.setProgress((int) (millisUntilFinished/1000));//update progressbar
     }
 
     @Override
