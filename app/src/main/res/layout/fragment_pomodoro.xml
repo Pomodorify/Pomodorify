@@ -12,9 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="50sp"
-        android:layout_marginRight="50sp"
-        android:layout_marginBottom="20sp"
         android:text="Timer"
         android:textSize="30sp" />
 
@@ -30,26 +27,24 @@
 
     <EditText
         android:id="@+id/activity"
-        android:background="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100sp"
+        android:layout_marginTop="150sp"
         android:hint="Activity Type"
-        android:textAlignment="center"
-        android:singleLine="true"/>
+        android:textAlignment="center" />
 
     <RadioGroup
         android:id="@+id/selectType"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginTop="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200sp"
         android:checkedButton="@id/FocusButton"
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/FocusButton"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Focus"
             android:textAlignment="center" />
@@ -57,7 +52,7 @@
         <RadioButton
             android:id="@+id/sBreakButton"
             android:layout_width="0dp"
-            android:layout_height="65dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Short Break"
             android:textAlignment="center" />
@@ -65,7 +60,7 @@
         <RadioButton
             android:id="@+id/lBreakButton"
             android:layout_width="0dp"
-            android:layout_height="65dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Long Break"
             android:textAlignment="center" />
@@ -81,14 +76,5 @@
         android:layout_marginRight="50sp"
         android:enabled="false"
         android:text="Pause" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="230sp"
-        android:layout_marginRight="50sp" />
 
 </FrameLayout>

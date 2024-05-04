@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <!-- Added colors -->
-    <color name="pomegranate">#c0392b</color>
-    <color name="hampton">#e2d8a5</color>
-    <color name="beige">#f7efe7</color>
-
-    <!-- Color palette from Coolors picked from a photo of a fresh plant of tomatoes. -->
-    <color name="brightRed">#fc2906</color>
-    <color name="azul">#ccdbd2</color>
-    <color name="darkBeige">#c29b5b</color>
-    <color name="vase">#f3a270</color>
-    <color name="lightBeige">#e7cdae</color>
-
-    <color name="lavender">#F6E8EA</color>
 </resources>
