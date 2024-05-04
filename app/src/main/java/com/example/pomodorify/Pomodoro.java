@@ -52,6 +52,7 @@ public class Pomodoro extends Fragment{
             int time = getMinutesDatabase(selectedId);
 
             timeLeft.setText(Utility.formatMillis(time * 1000));
+            progressBar.setMax(time);
         }
 
     }
