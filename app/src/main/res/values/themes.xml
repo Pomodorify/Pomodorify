@@ -2,7 +2,11 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Pomodorify" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/brightRed</item>
+        <item name="android:windowBackground">@color/lavender</item>
+        <!-- <item name="android:navigationBarColor">@color/azul</item> -->
+
+
     </style>
 
     <style name="Theme.Pomodorify" parent="Base.Theme.Pomodorify" />
