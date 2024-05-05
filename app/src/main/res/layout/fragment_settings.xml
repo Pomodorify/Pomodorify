@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="50sp"
     tools:context=".Settings">
 
     <!-- TODO: Update blank fragment layout -->
@@ -120,7 +121,7 @@
         app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toEndOf="@+id/longBar"
         app:layout_constraintTop_toTopOf="@+id/longBar" />
-
+    <!--
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -131,6 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    -->
 
     <TextView
         android:id="@+id/textView5"
