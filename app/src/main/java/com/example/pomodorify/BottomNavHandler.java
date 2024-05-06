@@ -25,6 +25,7 @@ public class BottomNavHandler implements BottomNavigationView.OnItemSelectedList
 
         //wybierz fragment pomodoro jako domyslny
         fragmentHandler.replaceFragment(fragmentHandler.getPomodoroFragment());
+
     }
 
     @Override
@@ -38,5 +39,4 @@ public class BottomNavHandler implements BottomNavigationView.OnItemSelectedList
         }
         return true;
     }
-
 }

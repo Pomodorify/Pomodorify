@@ -44,8 +44,8 @@ public class Pomodoro extends Fragment{
     }
 
     @Override
-    public void onResume() {//to sie uruchomi po wyłączeniu i włączeniu ekranu jak i po zmienia zakladki
-        super.onResume();
+    public void onStart() {//This function is called when a fragment becomes visible to the user. It is where you start any animations or update the UI.
+        super.onStart();
 
         if(timer == null){//jesli nie liczysz to wtedy ustaw czas w zaleznosci od tego co jest zaznaczone, jesli liczy to ontick to zmieni i tak
             int selectedId = getSelectedRadioId(radioGroup);

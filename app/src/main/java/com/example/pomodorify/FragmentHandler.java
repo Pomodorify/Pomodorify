@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 public class FragmentHandler {
-
     private final Fragment statistics;
     private final Fragment pomodoro;
     private final Fragment settings;
@@ -31,6 +30,10 @@ public class FragmentHandler {
         return settings;
     }
 
+    public Fragment getCurrentFragment(){
+        return fragmentManager.findFragmentById(R.id.frame_layout);
+    }
+
     public void replaceFragment(Fragment fragment){//np. dostaje statystyki i zmienia sobie
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -40,4 +43,4 @@ public class FragmentHandler {
 
 //TODO: Mozna zrobic tak ze fragmenty ladujemy tylko raz i potem korzystamy z hide/show zamiast replace
 //TODO: wtedy nie trzeba tez za kazdym razem ladowac statystyk z bazy danych, statystyki zaladujemy tylko
-//TODO: na poczatku oraz po tym jak powiadomi nas o tym observer pattern
+//TODO: na poczatku oraz po tym jak powiadomi nas o tym observer pattern; mozna tez uzyc notifyDataSetChanged() na ArrayAdapter
