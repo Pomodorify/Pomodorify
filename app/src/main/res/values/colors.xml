@@ -11,7 +11,7 @@
 
     <!-- Color palette from Coolors picked from a photo of a fresh plant of tomatoes. -->
     <color name="brightRed">#fc2906</color>
-    <color name="azul">#ccdbd2</color>
+    <color name="azul">#F7EEDE</color>
     <color name="darkBeige">#c29b5b</color>
     <color name="vase">#f3a270</color>
     <color name="lightBeige">#e7cdae</color>

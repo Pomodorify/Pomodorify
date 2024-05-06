@@ -43,6 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginTop="150sp"
+        android:layout_marginLeft="25sp"
+        android:layout_marginRight="25sp"
         android:checkedButton="@id/FocusButton"
         android:orientation="horizontal">
 
