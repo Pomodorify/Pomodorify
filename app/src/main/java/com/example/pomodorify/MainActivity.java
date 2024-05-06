@@ -1,10 +1,6 @@
 package com.example.pomodorify;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.ViewTreeObserver;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.pomodorify.databinding.ActivityMainBinding;
@@ -24,5 +20,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null){//jesli przywracam fragment (np. po restarcie aktywnosci po obrocie ekranu, to wtedy nie sie nie wywola)
             bottomNavHandler.setDefaultSettings();
         }
+
+        //this.deleteDatabase("Pomodorify.db");
     }
 }
