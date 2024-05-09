@@ -1,5 +1,9 @@
 package com.example.pomodorify;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.Service;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +25,18 @@ public class MainActivity extends AppCompatActivity {
             bottomNavHandler.setDefaultSettings();
         }
 
+        createNotificationChannel();
         //this.deleteDatabase("Pomodorify.db");
+    }
+
+    private void createNotificationChannel() {// Create the NotificationChannel, but only on API 26+ because
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("1", "TimerEndNotification", NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("Channel used to send send notifications after timer ends couting.");
+
+            // Register the channel with the system.
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

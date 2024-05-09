@@ -149,8 +149,13 @@ public class Pomodoro extends Fragment{
             timer.setCustomObjectListener(new NotifyPomodoro(){
                 @Override
                 public void onFinish() {
-                    playSound();        //efekt dzwiekowy po zakonczeniu sesji
-                    resetCounting();
+                    //playSound();        //efekt dzwiekowy po zakonczeniu sesji
+
+                    //wyslij powiadomienie
+                    TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
+                    timerEndNotification.showNotification();
+
+                    resetCounting();    //zresetuj UI
                 }
             });
             //tutaj fajnie widać 3 zasade SOLID, nie wazne czy timer to Timer czy FocusTimer i tak sie poprawnie zachowa

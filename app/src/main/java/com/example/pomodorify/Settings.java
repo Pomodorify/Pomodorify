@@ -1,5 +1,6 @@
 package com.example.pomodorify;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -105,6 +106,7 @@ public class Settings extends Fragment {
 
         return view;
     }
+
 }
 
 //TODO: mamy 3 timery, dla kazdego wybierz: czy chcesz przerwe, dlugosc timera, dlugosc przerwy, ew jakis dark theme
