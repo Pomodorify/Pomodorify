@@ -18,25 +18,32 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
     public static final String STAT_DATE = "date";//W jakim dniu bylo robione pomodoro
     public static final String STAT_ACT = "activity";
 
-    //fields used for timers length
-    public static final String PARAM_TABLE_NAME = "TimeParameters";
-    public static final String PARAM_ID = "id";
-    public static final String PARAM_LEN = "minutes";
+    //fields used for user preferences
+    public static final String PREF_TABLE_NAME = "UserPreferences";
+    public static final String PREF_ID = "id";
+    public static final String PREF_TIMER_LENGTH = "minutes";
+    public static final String PREF_DARK_THEME = "darkTheme";
+    public static final String PREF_END_NOTIFICATION = "endNotification";
+    public static final String PREF_END_SOUND = "endSound";
 
+    //static strings for querying user preferences
     public static final String focusKey = "focus";
     public static final String shortBreakKey = "shortBreak";
     public static final String longBreakKey = "longBreak";
-
-
 
     public DBHelper(Context context){
         super(context, "Pomodorify.db", null, 1);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + DBHelper.STAT_TABLE_NAME + " (" + DBHelper.STAT_ID + " INTEGER PRIMARY KEY, "
-                + DBHelper.STAT_TIME + " INTEGER, " + DBHelper.STAT_DATE + " INTEGER, " + DBHelper.STAT_ACT + " TEXT)");
-        db.execSQL("CREATE TABLE " + PARAM_TABLE_NAME + " (" + PARAM_ID + " TEXT PRIMARY KEY, " + PARAM_LEN + " INTEGER)");//rodzaj i dlugosc trwania timera
+        db.execSQL(
+                "CREATE TABLE " + STAT_TABLE_NAME + " (" + STAT_ID + " INTEGER PRIMARY KEY, "
+                + STAT_TIME + " INTEGER, " + STAT_DATE + " INTEGER, " + STAT_ACT + " TEXT)"
+        );
+        db.execSQL(
+                "CREATE TABLE " + PREF_TABLE_NAME + " (" + PREF_ID + " TEXT PRIMARY KEY, " + PREF_TIMER_LENGTH + " INTEGER, "
+                + PREF_DARK_THEME + " INTEGER, " + PREF_END_NOTIFICATION + " INTEGER, " + PREF_END_SOUND + " INTEGER)"
+        );
 
         //insert default timer values
         ContentValues values = new ContentValues();
@@ -48,16 +55,16 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
         for (String[] row : data) {
             values.clear();
-            values.put(PARAM_ID, row[0]);
-            values.put(PARAM_LEN, row[1]);
-            db.insert(PARAM_TABLE_NAME, null, values);
+            values.put(PREF_ID, row[0]);
+            values.put(PREF_TIMER_LENGTH, row[1]);
+            db.insert(PREF_TABLE_NAME, null, values);
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + STAT_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + PARAM_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PREF_TABLE_NAME);
     }
 
     public boolean insertStatistics(int time, String activity){
@@ -92,7 +99,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getFocusTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{focusKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_TIMER_LENGTH + " FROM " + PREF_TABLE_NAME + " WHERE id=?", new String[]{focusKey});
 
         int returnVal = -1;
 
@@ -105,7 +112,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getShortBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{shortBreakKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_TIMER_LENGTH + " FROM " + PREF_TABLE_NAME + " WHERE id=?", new String[]{shortBreakKey});
 
         int returnVal = -1;
 
@@ -118,7 +125,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getLongBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{longBreakKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_TIMER_LENGTH + " FROM " + PREF_TABLE_NAME + " WHERE id=?", new String[]{longBreakKey});
 
         int returnVal = -1;
 
@@ -133,35 +140,35 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PARAM_LEN, minutes);
+        values.put(PREF_TIMER_LENGTH, minutes);
 
-        String selection = PARAM_ID + " LIKE ?";
+        String selection = PREF_ID + " LIKE ?";
         String[] selectionArgs = { focusKey };
 
-        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, selection, selectionArgs);
     }
 
     public void ChangeShortBreak(int minutes) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PARAM_LEN, minutes);
+        values.put(PREF_TIMER_LENGTH, minutes);
 
-        String selection = PARAM_ID + " LIKE ?";
+        String selection = PREF_ID + " LIKE ?";
         String[] selectionArgs = { shortBreakKey };
 
-        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, selection, selectionArgs);
     }
     public void ChangeLongBreak(int minutes) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PARAM_LEN, minutes);
+        values.put(PREF_TIMER_LENGTH, minutes);
 
-        String selection = PARAM_ID + " LIKE ?";
+        String selection = PREF_ID + " LIKE ?";
         String[] selectionArgs = { longBreakKey };
 
-        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, selection, selectionArgs);
     }
 
 

@@ -8,40 +8,49 @@ import android.net.Uri;
 
 import androidx.core.app.NotificationCompat;
 
+//3 rodzaje metod: powiadomienie, powiadomienieBezDziwieku, powiadomienieDziekowe
+//Patrzac na settingsy to mamy:
+//OFF i OFF - nie wysylamy nic
+//ON I OFF - wysylamy tylko powiadomienie, ale bez dzwieku
+//OFF I ON - wysylyamy tylko dzwiek
+//ON I ON - wysylamy standardowe powiadomwienie czyli z dzwiekiem
 
 public class TimerEndNotification {
-    private Context context;
-    private NotificationManager notificationManager;
+    private final Context context;
+    private final NotificationManager notificationManager;
+    private NotificationCompat.Builder builder;
 
     public TimerEndNotification(Context context) {
         this.context = context;
         this.notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        this.builder = null;
     }
 
-    //TODO: 3 rodzaje metod, powiadomienie, powiadomieniebezdziwieku, powiadomieniedziekowe
-
     public void showNotification(){
+        notificationManager.notify(1, builder.build());
+    }
 
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "1")
+    public void buildStandardNotification(){
+        builder = new NotificationCompat.Builder(context, "1")
                 .setSmallIcon(R.drawable.timer)
                 .setContentTitle("My notification")
                 .setContentText("Hello World!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+    }
 
+    public void buildSoundLessNotification(){
+        buildStandardNotification();
+        builder.setSilent(true);
+    }
 
-
-        //builder.setSilent(true);//jakiegos ifa mozna dodac i bez problemu sie wylacza dzwiek
-
-        /*sam dzwiek
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(), notification);
-        r.play();
-         */
-
-
+    public void sendNotification(){
         notificationManager.notify(1, builder.build());
     }
 
+    public void playSoundOnly(){
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone ringtone = RingtoneManager.getRingtone(context.getApplicationContext(), notification);
+        ringtone.play();
+    }
 
 }

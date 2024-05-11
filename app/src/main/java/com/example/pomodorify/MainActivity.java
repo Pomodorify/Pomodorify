@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.pomodorify.databinding.ActivityMainBinding;
 
 //TODO: zapytanie o permisje, intent do ustawien powiadomien, sprawdz czy przydzielone powiadomienia
-//TODO:Jesli apka otwarta to wtedy wysylam tylko powiadomienie dzwiekowe, a jesli zamknieta to powiadomienie dzwiekowe + powiadomienie, jak na nie klikam to otwiera sie apka
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-        Create Notification Channel, execute this code as soon as your app starts.
+        Creates Notification Channel, execute this code as soon as your app starts.
         It's safe to call this repeatedly, because creating an existing notification channel performs no operation.
      */
     private void createNotificationChannel() {// Create the NotificationChannel, but only on API 26+; safe to call m
@@ -44,4 +43,5 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 }

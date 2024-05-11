@@ -149,7 +149,6 @@ public class Pomodoro extends Fragment{
             timer.setCustomObjectListener(new NotifyPomodoro(){
                 @Override
                 public void onFinish() {
-                    //playSound();        //efekt dzwiekowy po zakonczeniu sesji
 
                     //wyslij powiadomienie
                     TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
@@ -295,23 +294,4 @@ public class Pomodoro extends Fragment{
         }
     }
 
-    private void playSound(){
-        /*
-            according to: https://developer.android.com/media/platform/mediaplayer:
-            You should always look for other opportunities to release your MediaPlayer as well, apart from releasing it when being shut down.
-            For example, if you expect not to be able to play media for an extended period of time (after losing audio focus, for example),
-            you should definitely release your existing MediaPlayer and create it again later. On the other hand, if you only expect to stop
-            playback for a very short time, you should probably hold on to your MediaPlayer to avoid the overhead of creating and preparing it again.
-         */
-
-        //mozna uzyc prepareAsync aby dzialalo asynchronicznie, wtedy nie bedzie blokowac UI, my wczytujemy tylko maly lokalny plik wiec raczej nie jest to konieczne
-        mediaPlayer = MediaPlayer.create(getContext(), R.raw.mixkitpositivenotification);
-        mediaPlayer.start();
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            }
-        });
-    }
 }
