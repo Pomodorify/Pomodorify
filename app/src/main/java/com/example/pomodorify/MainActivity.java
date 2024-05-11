@@ -2,7 +2,6 @@ package com.example.pomodorify;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             createNotificationChannel();
         }
 
-        //this.deleteDatabase("Pomodorify.db"); 
+        //this.deleteDatabase("Pomodorify.db");
     }
 
     /*

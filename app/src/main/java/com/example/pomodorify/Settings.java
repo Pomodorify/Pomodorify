@@ -1,8 +1,16 @@
 package com.example.pomodorify;
 
 import android.content.Intent;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,7 +19,10 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
+
+
 
 
 public class Settings extends Fragment {
@@ -112,10 +123,37 @@ public class Settings extends Fragment {
         ToggleButton timerEndNotificationButton = (ToggleButton) view.findViewById(R.id.notisSessionFinished);
         timerEndNotificationButton.setChecked(getEndNotficationPreferences.getEndNotificationBool());
 
+        //handles what to do according to whether user gave permission to send notification
+        ActivityResultLauncher<String> requestPermissionLauncher =
+                registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                    if (!isGranted) {//user refused to give permission
+                        timerEndNotificationButton.setChecked(false);
+                    }
+                });
+
         timerEndNotificationButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setEndNotificationPreferences.setEndNotification(isChecked);
+                setEndNotificationPreferences.setEndNotification(isChecked);//save user preferences
+
+                if(isChecked){
+                    //Handle request for permissions when user turns notifications on
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){//in earlier versions app will ask for permission on its own
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                                getActivity(), Manifest.permission.POST_NOTIFICATIONS)) {
+                            Toast.makeText(getContext(), "You must give permission to send notifications first.", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                            timerEndNotificationButton.setChecked(false);
+                        }
+                        else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {//doesnt have permission
+                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                        }
+                    }
+                }
+
             }
         });
 
@@ -127,8 +165,9 @@ public class Settings extends Fragment {
                 setEndNotificationPreferences.setEndSound(isChecked);
             }
         });
-
         return view;
     }
+
+
 
 }
