@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             createNotificationChannel();
         }
 
-        //this.deleteDatabase("Pomodorify.db");
+        //this.deleteDatabase("Pomodorify.db"); 
     }
 
     /*
