@@ -150,11 +150,26 @@ public class Pomodoro extends Fragment{
                 @Override
                 public void onFinish() {
 
-                    //wyslij powiadomienie
-                    TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
-                    timerEndNotification.showNotification();
+                    //Check user preferences regarding sending notification and act accordingly
+                    EndNotficationPreferences endNotficationPreferences = new DBHelper(getContext());
 
-                    resetCounting();    //zresetuj UI
+                    boolean sound = endNotficationPreferences.getEndSoundBool();
+                    boolean notification = endNotficationPreferences.getEndNotificationBool();
+
+                    TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
+
+                    if(notification && sound){
+                        timerEndNotification.buildStandardNotification();
+                        timerEndNotification.sendNotification();
+                    } else if (notification) {
+                        timerEndNotification.buildSoundLessNotification();
+                        timerEndNotification.sendNotification();
+                    } else if (sound) {
+                        timerEndNotification.playSoundOnly();
+                    }
+
+                    //Bring UI back to ready-for-counting state
+                    resetCounting();
                 }
             });
             //tutaj fajnie widać 3 zasade SOLID, nie wazne czy timer to Timer czy FocusTimer i tak sie poprawnie zachowa

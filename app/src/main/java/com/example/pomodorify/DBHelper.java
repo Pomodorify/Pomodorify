@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes {
+public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, EndNotficationPreferences {
 
     //fields used for statistics
     public static final String STAT_TABLE_NAME = "Statistics";
@@ -161,10 +161,47 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         db.update(PREF_TABLE_NAME, values, null, null);
     }
 
+    public boolean getDarkThemeBool(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + PREF_DARK_THEME + " FROM " + PREF_TABLE_NAME, null);
+
+        int returnVal = 0;
+        if(cursor.moveToFirst())
+            returnVal = cursor.getInt(0);
+
+        cursor.close();
+        return returnVal > 0;
+    }
+
+    public boolean getEndNotificationBool(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + PREF_END_NOTIFICATION + " FROM " + PREF_TABLE_NAME, null);
+
+        int returnVal = 0;
+        if(cursor.moveToFirst())
+            returnVal = cursor.getInt(0);
+
+        cursor.close();
+        return returnVal > 0;
+    }
+
+    public boolean getEndSoundBool(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + PREF_END_SOUND + " FROM " + PREF_TABLE_NAME, null);
+
+        int returnVal = 0;
+        if(cursor.moveToFirst())
+            returnVal = cursor.getInt(0);
+
+        cursor.close();
+        return returnVal > 0;
+    }
 }
 
 /*
-    TODO:
     - kursory napewno zamykamy (cursor.close()), baze danych nie koniecznie (db.close())
     - z dokumentacji :   Since getWritableDatabase() and getReadableDatabase() are expensive to call when the
      database is closed, you should leave your database connection open for as long as you possibly need to access it.

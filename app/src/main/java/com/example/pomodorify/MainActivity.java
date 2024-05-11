@@ -26,15 +26,15 @@ public class MainActivity extends AppCompatActivity {
             createNotificationChannel();
         }
 
-        //this.deleteDatabase("Pomodorify.db");
+        this.deleteDatabase("Pomodorify.db");
     }
 
     /*
         Creates Notification Channel, execute this code as soon as your app starts.
         It's safe to call this repeatedly, because creating an existing notification channel performs no operation.
      */
-    private void createNotificationChannel() {// Create the NotificationChannel, but only on API 26+; safe to call m
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {// Create the NotificationChannel, but only on API 26+;
             NotificationChannel channel = new NotificationChannel("1", "TimerEndNotification", NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("Channel used to send send notifications after timer ends couting.");
 

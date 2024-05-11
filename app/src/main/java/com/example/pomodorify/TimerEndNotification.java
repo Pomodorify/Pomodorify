@@ -26,10 +26,6 @@ public class TimerEndNotification {
         this.builder = null;
     }
 
-    public void showNotification(){
-        notificationManager.notify(1, builder.build());
-    }
-
     public void buildStandardNotification(){
         builder = new NotificationCompat.Builder(context, "1")
                 .setSmallIcon(R.drawable.timer)
