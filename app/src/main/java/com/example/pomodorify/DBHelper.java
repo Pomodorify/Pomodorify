@@ -21,15 +21,13 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
     //fields used for user preferences
     public static final String PREF_TABLE_NAME = "UserPreferences";
     public static final String PREF_ID = "id";
-    public static final String PREF_TIMER_LENGTH = "minutes";
+    public static final String PREF_FOCUS_LENGTH = "focusLength";
+    public static final String PREF_SHORT_LENGTH = "shortLength";
+    public static final String PREF_LONG_LENGTH = "longLength";
     public static final String PREF_DARK_THEME = "darkTheme";
     public static final String PREF_END_NOTIFICATION = "endNotification";
     public static final String PREF_END_SOUND = "endSound";
 
-    //static strings for querying user preferences
-    public static final String focusKey = "focus";
-    public static final String shortBreakKey = "shortBreak";
-    public static final String longBreakKey = "longBreak";
 
     public DBHelper(Context context){
         super(context, "Pomodorify.db", null, 1);
@@ -41,24 +39,25 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
                 + STAT_TIME + " INTEGER, " + STAT_DATE + " INTEGER, " + STAT_ACT + " TEXT)"
         );
         db.execSQL(
-                "CREATE TABLE " + PREF_TABLE_NAME + " (" + PREF_ID + " TEXT PRIMARY KEY, " + PREF_TIMER_LENGTH + " INTEGER, "
-                + PREF_DARK_THEME + " INTEGER, " + PREF_END_NOTIFICATION + " INTEGER, " + PREF_END_SOUND + " INTEGER)"
+                "CREATE TABLE " + PREF_TABLE_NAME + " (" + PREF_ID + " TEXT PRIMARY KEY, "
+                        + PREF_FOCUS_LENGTH + " INTEGER, " + PREF_SHORT_LENGTH + " INTEGER, " + PREF_LONG_LENGTH + " INTEGER, "
+                        + PREF_DARK_THEME + " BOOLEAN NOT NULL CHECK (" + PREF_DARK_THEME + " IN (0, 1)), "
+                        + PREF_END_NOTIFICATION + " BOOLEAN NOT NULL CHECK (" + PREF_END_NOTIFICATION + " IN (0, 1)), "
+                        + PREF_END_SOUND + " BOOLEAN NOT NULL CHECK (" + PREF_END_SOUND + " IN (0, 1)))"
         );
 
-        //insert default timer values
+        //insert default user preferences
         ContentValues values = new ContentValues();
-        String[][] data = {
-                {focusKey, "45"},
-                {shortBreakKey, "5"},
-                {longBreakKey, "15"}
-        };
 
-        for (String[] row : data) {
-            values.clear();
-            values.put(PREF_ID, row[0]);
-            values.put(PREF_TIMER_LENGTH, row[1]);
-            db.insert(PREF_TABLE_NAME, null, values);
-        }
+        values.put(PREF_ID, 1);
+        values.put(PREF_FOCUS_LENGTH, 45);
+        values.put(PREF_SHORT_LENGTH, 5);
+        values.put(PREF_LONG_LENGTH, 15);
+        values.put(PREF_DARK_THEME, 0);
+        values.put(PREF_END_NOTIFICATION, 0);
+        values.put(PREF_END_SOUND, 0);
+
+        db.insert(PREF_TABLE_NAME, null, values);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getFocusTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PREF_TIMER_LENGTH + " FROM " + PREF_TABLE_NAME + " WHERE id=?", new String[]{focusKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_FOCUS_LENGTH + " FROM " + PREF_TABLE_NAME, null);
 
         int returnVal = -1;
 
@@ -112,7 +111,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getShortBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PREF_TIMER_LENGTH + " FROM " + PREF_TABLE_NAME + " WHERE id=?", new String[]{shortBreakKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_SHORT_LENGTH + " FROM " + PREF_TABLE_NAME, null);
 
         int returnVal = -1;
 
@@ -125,7 +124,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getLongBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PREF_TIMER_LENGTH + " FROM " + PREF_TABLE_NAME + " WHERE id=?", new String[]{longBreakKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_LONG_LENGTH + " FROM " + PREF_TABLE_NAME, null);
 
         int returnVal = -1;
 
@@ -136,41 +135,31 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         return returnVal;
     }
 
-    public void ChangeFocus(int minutes) {
+    public void ChangeFocus(int duration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PREF_TIMER_LENGTH, minutes);
+        values.put(PREF_FOCUS_LENGTH, duration);
 
-        String selection = PREF_ID + " LIKE ?";
-        String[] selectionArgs = { focusKey };
-
-        db.update(PREF_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, null, null);
     }
 
-    public void ChangeShortBreak(int minutes) {
+    public void ChangeShortBreak(int duration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PREF_TIMER_LENGTH, minutes);
+        values.put(PREF_SHORT_LENGTH, duration);
 
-        String selection = PREF_ID + " LIKE ?";
-        String[] selectionArgs = { shortBreakKey };
-
-        db.update(PREF_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, null, null);
     }
-    public void ChangeLongBreak(int minutes) {
+    public void ChangeLongBreak(int duration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PREF_TIMER_LENGTH, minutes);
+        values.put(PREF_LONG_LENGTH, duration);
 
-        String selection = PREF_ID + " LIKE ?";
-        String[] selectionArgs = { longBreakKey };
-
-        db.update(PREF_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, null, null);
     }
-
 
 }
 
