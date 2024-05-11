@@ -8,13 +8,6 @@ import android.net.Uri;
 
 import androidx.core.app.NotificationCompat;
 
-//3 rodzaje metod: powiadomienie, powiadomienieBezDziwieku, powiadomienieDziekowe
-//Patrzac na settingsy to mamy:
-//OFF i OFF - nie wysylamy nic
-//ON I OFF - wysylamy tylko powiadomienie, ale bez dzwieku
-//OFF I ON - wysylyamy tylko dzwiek
-//ON I ON - wysylamy standardowe powiadomwienie czyli z dzwiekiem
-
 public class TimerEndNotification {
     private final Context context;
     private final NotificationManager notificationManager;

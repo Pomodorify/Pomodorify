@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 
 public class Settings extends Fragment {
@@ -103,13 +105,30 @@ public class Settings extends Fragment {
             }
         });
 
+        //Notification and sound after timer ends buttons
+        SetEndNotificationPreferences setEndNotificationPreferences = new DBHelper(getActivity());
+        GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getActivity());
+
+        ToggleButton timerEndNotificationButton = (ToggleButton) view.findViewById(R.id.notisSessionFinished);
+        timerEndNotificationButton.setChecked(getEndNotficationPreferences.getEndNotificationBool());
+
+        timerEndNotificationButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setEndNotificationPreferences.setEndNotification(isChecked);
+            }
+        });
+
+        ToggleButton timerEndSoundButton = (ToggleButton) view.findViewById(R.id.soundSessionFinished);
+        timerEndSoundButton.setChecked(getEndNotficationPreferences.getEndSoundBool());
+        timerEndSoundButton .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setEndNotificationPreferences.setEndSound(isChecked);
+            }
+        });
 
         return view;
     }
 
 }
-
-//TODO: mamy 3 timery, dla kazdego wybierz: czy chcesz przerwe, dlugosc timera, dlugosc przerwy, ew jakis dark theme
-//TODO: jest tez jakis fragmentsettings, moze lepiej z niego skorzystac zamiast zwykly fragment, byc moze lepiej ustawienia trzymac w sharedpreferences
-//
-//

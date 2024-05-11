@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, EndNotficationPreferences {
+public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, GetEndNotficationPreferences, SetEndNotificationPreferences {
 
     //fields used for statistics
     public static final String STAT_TABLE_NAME = "Statistics";
@@ -198,6 +198,28 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
         cursor.close();
         return returnVal > 0;
+    }
+
+    public void setEndNotification(boolean b){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int x = b ? 1 : 0;
+
+        ContentValues values = new ContentValues();
+        values.put(PREF_END_NOTIFICATION, x);
+
+        db.update(PREF_TABLE_NAME, values, null, null);
+    }
+
+    public void setEndSound(boolean b){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int x = b ? 1 : 0;
+
+        ContentValues values = new ContentValues();
+        values.put(PREF_END_SOUND, x);
+
+        db.update(PREF_TABLE_NAME, values, null, null);
     }
 }
 
