@@ -139,14 +139,15 @@ public class Settings extends Fragment {
                 if(isChecked){
                     //Handle request for permissions when user turns notifications on
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){//in earlier versions app will ask for permission on its own
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                                getActivity(), Manifest.permission.POST_NOTIFICATIONS)) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.POST_NOTIFICATIONS)) {
                             Toast.makeText(getContext(), "You must give permission to send notifications first.", Toast.LENGTH_LONG).show();
+
+                            timerEndNotificationButton.setChecked(false);//set to false because we don't know yet, if user will allow for notifications or not
+
                             Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                             Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
                             intent.setData(uri);
                             startActivity(intent);
-                            timerEndNotificationButton.setChecked(false);
                         }
                         else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {//doesnt have permission
                             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);

@@ -134,12 +134,12 @@ public class Pomodoro extends Fragment{
             //pobierz ilosc minut z bazy danych dla danej aktywnosci
             int minutes = getMinutesDatabase(selectedId);
 
+            //pobierz etykiete aktywnosci
+            EditText activity = getActivity().findViewById(R.id.activity);
+            String activityLabel = activity.getText().toString();
+
             if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){//jesli sesja focus
                 InsertStatistics insertStatistics = new DBHelper(getActivity());
-
-                //pobierz etykiete aktywnosci
-                EditText activity = getActivity().findViewById(R.id.activity);
-                String activityLabel = activity.getText().toString();
 
                 timer = new FocusTimer(minutes * 1000, 1000, timeLeft, insertStatistics, activityLabel, progressBar);
             }
@@ -149,24 +149,8 @@ public class Pomodoro extends Fragment{
             timer.setCustomObjectListener(new NotifyPomodoro(){
                 @Override
                 public void onFinish() {
-
-                    //Check user preferences regarding sending notification and act accordingly
-                    GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getContext());
-
-                    boolean sound = getEndNotficationPreferences.getEndSoundBool();
-                    boolean notification = getEndNotficationPreferences.getEndNotificationBool();
-
-                    TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
-
-                    if(notification && sound){
-                        timerEndNotification.buildStandardNotification();
-                        timerEndNotification.sendNotification();
-                    } else if (notification) {
-                        timerEndNotification.buildSoundLessNotification();
-                        timerEndNotification.sendNotification();
-                    } else if (sound) {
-                        timerEndNotification.playSoundOnly();
-                    }
+                    //If user turned on notifications then send notification about end of session
+                    sendNotificationIfPossible(activityLabel);
 
                     //Bring UI back to ready-for-counting state
                     resetCounting();
@@ -306,6 +290,35 @@ public class Pomodoro extends Fragment{
                 Button continueButton = getActivity().findViewById(R.id.pauseButton);
                 continueButton.setText("Pause");
             }
+        }
+    }
+
+    private void sendNotificationIfPossible(String activityLabel){
+        //Check user preferences regarding sending notification and act accordingly
+        GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getContext());
+
+        boolean sound = getEndNotficationPreferences.getEndSoundBool();
+        boolean notification = getEndNotficationPreferences.getEndNotificationBool();
+
+        TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
+
+        //create text to display in notification
+        String displayText = "";
+        if(notification){
+            if(!activityLabel.isEmpty())
+                displayText = "Your session " + activityLabel + " just ended!";
+            else
+                displayText = "Your session just ended!";
+        }
+
+        if(notification && sound){
+            timerEndNotification.buildStandardNotification(displayText);
+            timerEndNotification.sendNotification();
+        } else if (notification) {
+            timerEndNotification.buildSoundLessNotification(displayText);
+            timerEndNotification.sendNotification();
+        } else if (sound) {
+            timerEndNotification.playSoundOnly();
         }
     }
 

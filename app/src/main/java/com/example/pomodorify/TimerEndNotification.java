@@ -19,16 +19,16 @@ public class TimerEndNotification {
         this.builder = null;
     }
 
-    public void buildStandardNotification(){
+    public void buildStandardNotification(String displayText){
         builder = new NotificationCompat.Builder(context, "1")
                 .setSmallIcon(R.drawable.timer)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
+                .setContentTitle("Session status changed")
+                .setContentText(displayText)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
     }
 
-    public void buildSoundLessNotification(){
-        buildStandardNotification();
+    public void buildSoundLessNotification(String displayText){
+        buildStandardNotification(displayText);
         builder.setSilent(true);
     }
 
