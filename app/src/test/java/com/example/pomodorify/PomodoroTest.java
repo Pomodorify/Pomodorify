@@ -29,22 +29,19 @@ public class PomodoroTest {
     @Test
     public void setFocusTest(){
         pomodoro.setFocus();
-        String test = (String) ((TextView)activity.findViewById(R.id.timeLeft)).getText();
-        assertEquals(((TextView)activity.findViewById(R.id.timeLeft)).getText(), "45 : 00");
+        assertEquals(((TextView)activity.findViewById(R.id.timeLeft)).getText(), "00 : 45");
     }
 
     @Test
     public void setShortBreakTest(){
         pomodoro.setShortBreak();
-        String test = (String) ((TextView)activity.findViewById(R.id.timeLeft)).getText();
-        assertEquals(((TextView)activity.findViewById(R.id.timeLeft)).getText(), "05 : 00");
+        assertEquals(((TextView)activity.findViewById(R.id.timeLeft)).getText(), "00 : 05");
     }
 
     @Test
     public void setLongBreakTest(){
         pomodoro.setLongBreak();
-        String test = (String) ((TextView)activity.findViewById(R.id.timeLeft)).getText();
-        assertEquals(((TextView)activity.findViewById(R.id.timeLeft)).getText(), "15 : 00");
+        assertEquals(((TextView)activity.findViewById(R.id.timeLeft)).getText(), "00 : 15");
     }
 
 }

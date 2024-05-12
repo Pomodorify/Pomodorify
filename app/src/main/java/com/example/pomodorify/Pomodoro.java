@@ -134,12 +134,12 @@ public class Pomodoro extends Fragment{
             //pobierz ilosc minut z bazy danych dla danej aktywnosci
             int minutes = getMinutesDatabase(selectedId);
 
+            //pobierz etykiete aktywnosci
+            EditText activity = getActivity().findViewById(R.id.activity);
+            String activityLabel = activity.getText().toString();
+
             if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){//jesli sesja focus
                 InsertStatistics insertStatistics = new DBHelper(getActivity());
-
-                //pobierz etykiete aktywnosci
-                EditText activity = getActivity().findViewById(R.id.activity);
-                String activityLabel = activity.getText().toString();
 
                 timer = new FocusTimer(minutes * 1000, 1000, timeLeft, insertStatistics, activityLabel, progressBar);
             }
@@ -149,7 +149,10 @@ public class Pomodoro extends Fragment{
             timer.setCustomObjectListener(new NotifyPomodoro(){
                 @Override
                 public void onFinish() {
-                    playSound();        //efekt dzwiekowy po zakonczeniu sesji
+                    //If user turned on notifications then send notification about end of session
+                    sendNotificationIfPossible(activityLabel);
+
+                    //Bring UI back to ready-for-counting state
                     resetCounting();
                 }
             });
@@ -290,23 +293,33 @@ public class Pomodoro extends Fragment{
         }
     }
 
-    private void playSound(){
-        /*
-            according to: https://developer.android.com/media/platform/mediaplayer:
-            You should always look for other opportunities to release your MediaPlayer as well, apart from releasing it when being shut down.
-            For example, if you expect not to be able to play media for an extended period of time (after losing audio focus, for example),
-            you should definitely release your existing MediaPlayer and create it again later. On the other hand, if you only expect to stop
-            playback for a very short time, you should probably hold on to your MediaPlayer to avoid the overhead of creating and preparing it again.
-         */
+    private void sendNotificationIfPossible(String activityLabel){
+        //Check user preferences regarding sending notification and act accordingly
+        GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getContext());
 
-        //mozna uzyc prepareAsync aby dzialalo asynchronicznie, wtedy nie bedzie blokowac UI, my wczytujemy tylko maly lokalny plik wiec raczej nie jest to konieczne
-        mediaPlayer = MediaPlayer.create(getContext(), R.raw.mixkitpositivenotification);
-        mediaPlayer.start();
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            }
-        });
+        boolean sound = getEndNotficationPreferences.getEndSoundBool();
+        boolean notification = getEndNotficationPreferences.getEndNotificationBool();
+
+        TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
+
+        //create text to display in notification
+        String displayText = "";
+        if(notification){
+            if(!activityLabel.isEmpty())
+                displayText = "Your session " + activityLabel + " just ended!";
+            else
+                displayText = "Your session just ended!";
+        }
+
+        if(notification && sound){
+            timerEndNotification.buildStandardNotification(displayText);
+            timerEndNotification.sendNotification();
+        } else if (notification) {
+            timerEndNotification.buildSoundLessNotification(displayText);
+            timerEndNotification.sendNotification();
+        } else if (sound) {
+            timerEndNotification.playSoundOnly();
+        }
     }
+
 }

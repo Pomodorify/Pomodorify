@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SoundEffects" />
+        app:layout_constraintTop_toBottomOf="@+id/soundSessionFinished" />
 
     <SeekBar
         android:id="@+id/focusBar"
@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="Sound effects"
-        app:layout_constraintEnd_toStartOf="@+id/SoundEffects"
+        app:layout_constraintEnd_toStartOf="@+id/soundSessionFinished"
         app:layout_constraintHorizontal_bias="0.383"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -177,17 +177,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ToggleButton
-        android:id="@+id/SoundEffects"
+        android:id="@+id/soundSessionFinished"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="64dp"
         android:text="Sound effects"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NotisSessionFinished" />
+        app:layout_constraintTop_toBottomOf="@+id/notisSessionFinished" />
 
     <ToggleButton
-        android:id="@+id/NotisSessionFinished"
+        android:id="@+id/notisSessionFinished"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -213,7 +213,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="Notification after session"
-        app:layout_constraintEnd_toStartOf="@+id/NotisSessionFinished"
+        app:layout_constraintEnd_toStartOf="@+id/notisSessionFinished"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes {
+public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, GetEndNotficationPreferences, SetEndNotificationPreferences {
 
     //fields used for statistics
     public static final String STAT_TABLE_NAME = "Statistics";
@@ -18,15 +18,15 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
     public static final String STAT_DATE = "date";//W jakim dniu bylo robione pomodoro
     public static final String STAT_ACT = "activity";
 
-    //fields used for timers length
-    public static final String PARAM_TABLE_NAME = "TimeParameters";
-    public static final String PARAM_ID = "id";
-    public static final String PARAM_LEN = "minutes";
-
-    public static final String focusKey = "focus";
-    public static final String shortBreakKey = "shortBreak";
-    public static final String longBreakKey = "longBreak";
-
+    //fields used for user preferences
+    public static final String PREF_TABLE_NAME = "UserPreferences";
+    public static final String PREF_ID = "id";
+    public static final String PREF_FOCUS_LENGTH = "focusLength";
+    public static final String PREF_SHORT_LENGTH = "shortLength";
+    public static final String PREF_LONG_LENGTH = "longLength";
+    public static final String PREF_DARK_THEME = "darkTheme";
+    public static final String PREF_END_NOTIFICATION = "endNotification";
+    public static final String PREF_END_SOUND = "endSound";
 
 
     public DBHelper(Context context){
@@ -34,30 +34,36 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + DBHelper.STAT_TABLE_NAME + " (" + DBHelper.STAT_ID + " INTEGER PRIMARY KEY, "
-                + DBHelper.STAT_TIME + " INTEGER, " + DBHelper.STAT_DATE + " INTEGER, " + DBHelper.STAT_ACT + " TEXT)");
-        db.execSQL("CREATE TABLE " + PARAM_TABLE_NAME + " (" + PARAM_ID + " TEXT PRIMARY KEY, " + PARAM_LEN + " INTEGER)");//rodzaj i dlugosc trwania timera
+        db.execSQL(
+                "CREATE TABLE " + STAT_TABLE_NAME + " (" + STAT_ID + " INTEGER PRIMARY KEY, "
+                + STAT_TIME + " INTEGER, " + STAT_DATE + " INTEGER, " + STAT_ACT + " TEXT)"
+        );
+        db.execSQL(
+                "CREATE TABLE " + PREF_TABLE_NAME + " (" + PREF_ID + " TEXT PRIMARY KEY, "
+                        + PREF_FOCUS_LENGTH + " INTEGER, " + PREF_SHORT_LENGTH + " INTEGER, " + PREF_LONG_LENGTH + " INTEGER, "
+                        + PREF_DARK_THEME + " BOOLEAN NOT NULL CHECK (" + PREF_DARK_THEME + " IN (0, 1)), "
+                        + PREF_END_NOTIFICATION + " BOOLEAN NOT NULL CHECK (" + PREF_END_NOTIFICATION + " IN (0, 1)), "
+                        + PREF_END_SOUND + " BOOLEAN NOT NULL CHECK (" + PREF_END_SOUND + " IN (0, 1)))"
+        );
 
-        //insert default timer values
+        //insert default user preferences
         ContentValues values = new ContentValues();
-        String[][] data = {
-                {focusKey, "10"},
-                {shortBreakKey, "5"},
-                {longBreakKey, "15"}
-        };
 
-        for (String[] row : data) {
-            values.clear();
-            values.put(PARAM_ID, row[0]);
-            values.put(PARAM_LEN, row[1]);
-            db.insert(PARAM_TABLE_NAME, null, values);
-        }
+        values.put(PREF_ID, 1);
+        values.put(PREF_FOCUS_LENGTH, 45);
+        values.put(PREF_SHORT_LENGTH, 5);
+        values.put(PREF_LONG_LENGTH, 15);
+        values.put(PREF_DARK_THEME, 0);
+        values.put(PREF_END_NOTIFICATION, 0);
+        values.put(PREF_END_SOUND, 0);
+
+        db.insert(PREF_TABLE_NAME, null, values);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + STAT_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + PARAM_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PREF_TABLE_NAME);
     }
 
     public boolean insertStatistics(int time, String activity){
@@ -92,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getFocusTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{focusKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_FOCUS_LENGTH + " FROM " + PREF_TABLE_NAME, null);
 
         int returnVal = -1;
 
@@ -105,7 +111,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getShortBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{shortBreakKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_SHORT_LENGTH + " FROM " + PREF_TABLE_NAME, null);
 
         int returnVal = -1;
 
@@ -118,7 +124,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public int getLongBreakTime(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PARAM_LEN + " FROM " + PARAM_TABLE_NAME + " WHERE id=?", new String[]{longBreakKey});
+        Cursor cursor = db.rawQuery("SELECT " + PREF_LONG_LENGTH + " FROM " + PREF_TABLE_NAME, null);
 
         int returnVal = -1;
 
@@ -129,46 +135,95 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         return returnVal;
     }
 
-    public void ChangeFocus(int minutes) {
+    public void ChangeFocus(int duration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PARAM_LEN, minutes);
+        values.put(PREF_FOCUS_LENGTH, duration);
 
-        String selection = PARAM_ID + " LIKE ?";
-        String[] selectionArgs = { focusKey };
-
-        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, null, null);
     }
 
-    public void ChangeShortBreak(int minutes) {
+    public void ChangeShortBreak(int duration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PARAM_LEN, minutes);
+        values.put(PREF_SHORT_LENGTH, duration);
 
-        String selection = PARAM_ID + " LIKE ?";
-        String[] selectionArgs = { shortBreakKey };
-
-        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, null, null);
     }
-    public void ChangeLongBreak(int minutes) {
+    public void ChangeLongBreak(int duration) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PARAM_LEN, minutes);
+        values.put(PREF_LONG_LENGTH, duration);
 
-        String selection = PARAM_ID + " LIKE ?";
-        String[] selectionArgs = { longBreakKey };
-
-        db.update(PARAM_TABLE_NAME, values, selection, selectionArgs);
+        db.update(PREF_TABLE_NAME, values, null, null);
     }
 
+    public boolean getDarkThemeBool(){
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        Cursor cursor = db.rawQuery("SELECT " + PREF_DARK_THEME + " FROM " + PREF_TABLE_NAME, null);
+
+        int returnVal = 0;
+        if(cursor.moveToFirst())
+            returnVal = cursor.getInt(0);
+
+        cursor.close();
+        return returnVal > 0;
+    }
+
+    public boolean getEndNotificationBool(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + PREF_END_NOTIFICATION + " FROM " + PREF_TABLE_NAME, null);
+
+        int returnVal = 0;
+        if(cursor.moveToFirst())
+            returnVal = cursor.getInt(0);
+
+        cursor.close();
+        return returnVal > 0;
+    }
+
+    public boolean getEndSoundBool(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + PREF_END_SOUND + " FROM " + PREF_TABLE_NAME, null);
+
+        int returnVal = 0;
+        if(cursor.moveToFirst())
+            returnVal = cursor.getInt(0);
+
+        cursor.close();
+        return returnVal > 0;
+    }
+
+    public void setEndNotification(boolean b){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int x = b ? 1 : 0;
+
+        ContentValues values = new ContentValues();
+        values.put(PREF_END_NOTIFICATION, x);
+
+        db.update(PREF_TABLE_NAME, values, null, null);
+    }
+
+    public void setEndSound(boolean b){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int x = b ? 1 : 0;
+
+        ContentValues values = new ContentValues();
+        values.put(PREF_END_SOUND, x);
+
+        db.update(PREF_TABLE_NAME, values, null, null);
+    }
 }
 
 /*
-    TODO:
     - kursory napewno zamykamy (cursor.close()), baze danych nie koniecznie (db.close())
     - z dokumentacji :   Since getWritableDatabase() and getReadableDatabase() are expensive to call when the
      database is closed, you should leave your database connection open for as long as you possibly need to access it.
