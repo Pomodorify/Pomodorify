@@ -1,5 +1,5 @@
 package com.example.pomodorify;
 public interface SetEndNotificationPreferences {
-    public void setEndNotification(boolean b);
-    public void setEndSound(boolean b);
+    public void setEndNotificationPreferences(boolean b);
+    public void setEndSoundPreferences(boolean b);
 }

@@ -297,8 +297,8 @@ public class Pomodoro extends Fragment{
         //Check user preferences regarding sending notification and act accordingly
         GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getContext());
 
-        boolean sound = getEndNotficationPreferences.getEndSoundBool();
-        boolean notification = getEndNotficationPreferences.getEndNotificationBool();
+        boolean sound = getEndNotficationPreferences.getEndSoundPreferences();
+        boolean notification = getEndNotficationPreferences.getEndNotificationPreferences();
 
         TimerEndNotification timerEndNotification = new TimerEndNotification(getContext());
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -121,7 +123,7 @@ public class Settings extends Fragment {
         GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getActivity());
 
         ToggleButton timerEndNotificationButton = (ToggleButton) view.findViewById(R.id.notisSessionFinished);
-        timerEndNotificationButton.setChecked(getEndNotficationPreferences.getEndNotificationBool());
+        timerEndNotificationButton.setChecked(getEndNotficationPreferences.getEndNotificationPreferences());
 
         //handles what to do according to whether user gave permission to send notification
         ActivityResultLauncher<String> requestPermissionLauncher =
@@ -134,7 +136,7 @@ public class Settings extends Fragment {
         timerEndNotificationButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setEndNotificationPreferences.setEndNotification(isChecked);//save user preferences
+                setEndNotificationPreferences.setEndNotificationPreferences(isChecked);//save user preferences
 
                 if(isChecked){
                     //Handle request for permissions when user turns notifications on
@@ -159,13 +161,33 @@ public class Settings extends Fragment {
         });
 
         ToggleButton timerEndSoundButton = (ToggleButton) view.findViewById(R.id.soundSessionFinished);
-        timerEndSoundButton.setChecked(getEndNotficationPreferences.getEndSoundBool());
+        timerEndSoundButton.setChecked(getEndNotficationPreferences.getEndSoundPreferences());
         timerEndSoundButton .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setEndNotificationPreferences.setEndSound(isChecked);
+                setEndNotificationPreferences.setEndSoundPreferences(isChecked);
             }
         });
+
+        //read state of dark theme switch from db
+        GetDarkThemePreferences getDarkThemePreferences = new DBHelper(getActivity());
+
+        SwitchCompat darkThemeSwitch = (SwitchCompat) view.findViewById(R.id.themeSwitch);
+        darkThemeSwitch.setChecked(getDarkThemePreferences.getDarkThemePreferences());
+
+        //save state of dark theme switch from db
+        darkThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SetDarkThemePreferences setDarkThemePreferences = new DBHelper(getActivity());
+                setDarkThemePreferences.setDarkThemePreferences(isChecked);
+
+                if(isChecked){
+                    //darkThemeOn();
+                }
+            }
+        });
+
         return view;
     }
 

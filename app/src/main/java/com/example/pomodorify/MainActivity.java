@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
             createNotificationChannel();
         }
 
+        //change to dark theme UI if user selected dark theme in Settings
+        GetDarkThemePreferences getDarkThemePreferences = new DBHelper(this);
+        if(getDarkThemePreferences.getDarkThemePreferences()){
+            //darkThemeOn();
+        }
+
         //this.deleteDatabase("Pomodorify.db");
     }
 

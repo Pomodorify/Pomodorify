@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, GetEndNotficationPreferences, SetEndNotificationPreferences {
+public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, GetEndNotficationPreferences, SetEndNotificationPreferences, GetDarkThemePreferences, SetDarkThemePreferences {
 
     //fields used for statistics
     public static final String STAT_TABLE_NAME = "Statistics";
@@ -161,7 +161,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         db.update(PREF_TABLE_NAME, values, null, null);
     }
 
-    public boolean getDarkThemeBool(){
+    public boolean getDarkThemePreferences(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + PREF_DARK_THEME + " FROM " + PREF_TABLE_NAME, null);
@@ -174,7 +174,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         return returnVal > 0;
     }
 
-    public boolean getEndNotificationBool(){
+    public boolean getEndNotificationPreferences(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + PREF_END_NOTIFICATION + " FROM " + PREF_TABLE_NAME, null);
@@ -187,7 +187,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         return returnVal > 0;
     }
 
-    public boolean getEndSoundBool(){
+    public boolean getEndSoundPreferences(){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT " + PREF_END_SOUND + " FROM " + PREF_TABLE_NAME, null);
@@ -200,7 +200,18 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         return returnVal > 0;
     }
 
-    public void setEndNotification(boolean b){
+    public void setDarkThemePreferences(boolean b){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int x = b ? 1 : 0;
+
+        ContentValues values = new ContentValues();
+        values.put(PREF_DARK_THEME, x);
+
+        db.update(PREF_TABLE_NAME, values, null, null);
+    }
+
+    public void setEndNotificationPreferences(boolean b){
         SQLiteDatabase db = this.getWritableDatabase();
 
         int x = b ? 1 : 0;
@@ -211,7 +222,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         db.update(PREF_TABLE_NAME, values, null, null);
     }
 
-    public void setEndSound(boolean b){
+    public void setEndSoundPreferences(boolean b){
         SQLiteDatabase db = this.getWritableDatabase();
 
         int x = b ? 1 : 0;
