@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Pomodorify" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/cinnabar</item>
+        <item name="colorSecondary">@color/mercury</item>
+        <item name="android:windowBackground">@color/pickledBluewood</item>
     </style>
 </resources>

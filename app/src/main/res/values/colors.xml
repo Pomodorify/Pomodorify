@@ -17,4 +17,9 @@
     <color name="lightBeige">#e7cdae</color>
 
     <color name="lavender">#F6E8EA</color>
+
+    <!-- Dark mode colors magic -->
+    <color name="pickledBluewood">#2b3d4f</color>
+    <color name="cinnabar">#e74d3c</color>
+    <color name="mercury">#e3e3e3</color>
 </resources>
