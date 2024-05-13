@@ -14,7 +14,6 @@
         android:layout_gravity="center"
         android:layout_marginLeft="50sp"
         android:layout_marginRight="50sp"
-        android:layout_marginBottom="20sp"
         android:text="Timer"
         android:textSize="30sp" />
 
@@ -25,23 +24,35 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="50sp"
         android:layout_marginRight="50sp"
-        android:layout_marginBottom="150sp"
+        android:layout_marginBottom="100sp"
         android:text="Start" />
+
+    <Button
+        android:id="@+id/pauseButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="50sp"
+        android:layout_marginRight="50sp"
+        android:layout_marginBottom="200sp"
+        android:enabled="false"
+        android:text="Pause" />
 
     <EditText
         android:id="@+id/activity"
         android:background="@null"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50sp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="100sp"
-        android:hint="Activity Type"
         android:textAlignment="center"
+        android:hint="Activity Type"
         android:singleLine="true"/>
 
     <RadioGroup
         android:id="@+id/selectType"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="65sp"
         android:layout_marginTop="150sp"
         android:layout_marginLeft="25sp"
         android:layout_marginRight="25sp"
@@ -50,7 +61,7 @@
 
         <RadioButton
             android:id="@+id/FocusButton"
-            android:layout_width="0dp"
+            android:layout_width="0sp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Focus"
@@ -58,40 +69,31 @@
 
         <RadioButton
             android:id="@+id/sBreakButton"
-            android:layout_width="0dp"
-            android:layout_height="65dp"
+            android:layout_width="0sp"
+            android:layout_height="65sp"
             android:layout_weight="1"
             android:text="Short Break"
             android:textAlignment="center" />
 
         <RadioButton
             android:id="@+id/lBreakButton"
-            android:layout_width="0dp"
-            android:layout_height="65dp"
+            android:layout_width="0sp"
+            android:layout_height="65sp"
             android:layout_weight="1"
             android:text="Long Break"
             android:textAlignment="center" />
 
     </RadioGroup>
 
-    <Button
-        android:id="@+id/pauseButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginTop="400sp"
-        android:layout_marginRight="50sp"
-        android:enabled="false"
-        android:text="Pause" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="65sp"
+        android:layout_gravity="center"
         android:layout_marginLeft="50sp"
-        android:layout_marginTop="230sp"
         android:layout_marginRight="50sp"
+        android:layout_marginBottom="75sp"
         android:progress="0" />
 
 </FrameLayout>

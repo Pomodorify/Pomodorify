@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.example.pomodorify.databinding.ActivityMainBinding;
 
 //TODO: zapytanie o permisje, intent do ustawien powiadomien, sprawdz czy przydzielone powiadomienia
@@ -27,8 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
         //change to dark theme UI if user selected dark theme in Settings
         GetDarkThemePreferences getDarkThemePreferences = new DBHelper(this);
-        if(getDarkThemePreferences.getDarkThemePreferences()){
-            //darkThemeOn();
+        if (getDarkThemePreferences.getDarkThemePreferences()) {
+            // setting theme to night mode
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            // setting theme to light theme
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
         //this.deleteDatabase("Pomodorify.db");

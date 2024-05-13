@@ -13,7 +13,7 @@
         android:id="@+id/focusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="20sp"
         android:text="Focus Timer length (minutes)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -22,9 +22,9 @@
 
     <SeekBar
         android:id="@+id/focusBar"
-        android:layout_width="294dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="300sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="12sp"
         android:max="119"
         android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:id="@+id/focusMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="12sp"
         android:text="120"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,21 +55,21 @@
 
     <TextView
         android:id="@+id/focusMin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_width="8dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="4sp"
         android:text="1"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/focusBar"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.57"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/focusBar" />
 
     <SeekBar
         android:id="@+id/longBar"
-        android:layout_width="300dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="300sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="16sp"
         android:max="45"
         android:progress="15"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,10 +81,11 @@
         android:id="@+id/longMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="8sp"
         android:text="15"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/longBar"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/longBar" />
 
@@ -92,7 +93,7 @@
         android:id="@+id/longText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="16sp"
         android:text="Long Break length (minutes)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -114,34 +115,22 @@
         android:id="@+id/longMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="8sp"
         android:text="60"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toEndOf="@+id/longBar"
         app:layout_constraintTop_toTopOf="@+id/longBar" />
-    <!--
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Settings"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    -->
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="48sp"
         android:text="Sound effects"
         app:layout_constraintEnd_toStartOf="@+id/soundSessionFinished"
-        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintHorizontal_bias="0.401"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -149,7 +138,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="48sp"
         android:text="Notification bar"
         app:layout_constraintEnd_toStartOf="@+id/NotisBar"
         app:layout_constraintHorizontal_bias="0.392"
@@ -160,8 +149,8 @@
         android:id="@+id/NotisBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginTop="24sp"
+        android:layout_marginEnd="64sp"
         android:text="Notifications during timing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/themeSwitch" />
@@ -170,18 +159,17 @@
         android:id="@+id/themeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="60dp"
-        android:text="Switch"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="60sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        />
 
     <ToggleButton
         android:id="@+id/soundSessionFinished"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="64sp"
         android:text="Sound effects"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notisSessionFinished" />
@@ -190,8 +178,8 @@
         android:id="@+id/notisSessionFinished"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="64sp"
         android:text="Notification after finishing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NotisBar" />
@@ -200,29 +188,28 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="Dark Theme"
         app:layout_constraintEnd_toStartOf="@+id/themeSwitch"
-        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintHorizontal_bias="0.385"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="48sp"
         android:text="Notification after session"
         app:layout_constraintEnd_toStartOf="@+id/notisSessionFinished"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.317"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <SeekBar
         android:id="@+id/shortBar"
-        android:layout_width="298dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="300sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="16sp"
         android:max="14"
         android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -234,7 +221,7 @@
         android:id="@+id/shortMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="4sp"
         android:text="15"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -256,7 +243,7 @@
         android:id="@+id/shortText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="16sp"
         android:text="Short Break length (minutes)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -267,11 +254,11 @@
         android:id="@+id/shortMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="12sp"
         android:text="1"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/shortBar"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/shortBar" />
 

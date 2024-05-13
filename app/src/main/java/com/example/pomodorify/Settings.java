@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AppCompatDelegate;
 
 
 
@@ -183,7 +184,13 @@ public class Settings extends Fragment {
                 setDarkThemePreferences.setDarkThemePreferences(isChecked);
 
                 if(isChecked){
-                    //darkThemeOn();
+                    // setting theme to night mode
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else {
+                    // by-default the switch will be off
+                    // setting theme to light theme
+                    AppCompatDelegate.setDefaultNightMode (AppCompatDelegate.MODE_NIGHT_NO);
                 }
             }
         });
