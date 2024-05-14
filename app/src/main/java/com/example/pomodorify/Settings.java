@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -180,16 +179,14 @@ public class Settings extends Fragment {
         darkThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //remember user preferences
                 SetDarkThemePreferences setDarkThemePreferences = new DBHelper(getActivity());
                 setDarkThemePreferences.setDarkThemePreferences(isChecked);
 
+                //set/disable dark theme
                 if(isChecked){
-                    // setting theme to night mode
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-                else {
-                    // by-default the switch will be off
-                    // setting theme to light theme
+                } else {
                     AppCompatDelegate.setDefaultNightMode (AppCompatDelegate.MODE_NIGHT_NO);
                 }
             }
