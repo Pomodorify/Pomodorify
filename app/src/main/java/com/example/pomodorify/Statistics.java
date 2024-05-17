@@ -52,3 +52,5 @@ public class Statistics extends Fragment {
     }
 
 }
+
+//https://developer.android.com/topic/performance/vitals/render - lepiej uzyc DiffUtil zamiast notifyDataSetChanged dla malych zmian
