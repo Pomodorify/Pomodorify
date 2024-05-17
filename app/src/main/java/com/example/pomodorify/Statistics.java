@@ -3,6 +3,8 @@ package com.example.pomodorify;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +32,13 @@ public class Statistics extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         //zaladuj statystyki
-        fetchStatistics(view);
+        loadStatistics(view);
+        //fetchStatistics(view);
         return view;
     }
 
     public void fetchStatistics(View view){
+        /*
         //variables to display data
         ArrayList<String> myDataList = new ArrayList<>();
         ListView myListView = view.findViewById(R.id.statList);
@@ -49,6 +53,18 @@ public class Statistics extends Fragment {
         }
 
         myListView.setAdapter(myAdapter);
+         */
+    }
+
+    public void loadStatistics(View view){
+        RecyclerView recyclerView = view.findViewById(R.id.statisticsList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        GetStatistics getStatistics = new DBHelper(getActivity());
+        List<String> statisticsRecords = getStatistics.getStatisticsDataFormatted();
+
+        ListStatisticsAdapter listStatisticsAdapter = new ListStatisticsAdapter(statisticsRecords);
+        recyclerView.setAdapter(listStatisticsAdapter);
     }
 
 }

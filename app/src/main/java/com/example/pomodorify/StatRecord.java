@@ -20,13 +20,13 @@ public class StatRecord {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Duration:" + time + "\n");
-        sb.append("Date:" + Utility.convertTimestampToDate(date) + "\n");
+        sb.append("Duration: " + time + "\n");
+        sb.append("Date: " + Utility.convertTimestampToDate(date) + "\n");
 
         if(activity.equals(""))
             sb.append("Activity: unspecified" + "\n");
         else
-            sb.append("Activity:" + activity + "\n");
+            sb.append("Activity: " + activity + "\n");
 
         return sb.toString();
     }

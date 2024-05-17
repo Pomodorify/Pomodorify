@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -86,11 +87,25 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(DBHelper.STAT_TABLE_NAME, null, null, null, null, null, null);
 
-        List<StatRecord> list = new LinkedList<>();
+        List<StatRecord> list = new ArrayList<>();
 
         while(cursor.moveToNext()){
             StatRecord record = new StatRecord(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3));
             list.add(record);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<String> getStatisticsDataFormatted(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(DBHelper.STAT_TABLE_NAME, null, null, null, null, null, null);
+
+        List<String> list = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            StatRecord record = new StatRecord(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3));
+            list.add(record.toString());
         }
         cursor.close();
         return list;
