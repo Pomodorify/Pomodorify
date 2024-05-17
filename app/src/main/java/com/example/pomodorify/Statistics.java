@@ -31,29 +31,10 @@ public class Statistics extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-        //zaladuj statystyki
+
         loadStatistics(view);
-        //fetchStatistics(view);
+
         return view;
-    }
-
-    public void fetchStatistics(View view){
-        /*
-        //variables to display data
-        ArrayList<String> myDataList = new ArrayList<>();
-        ListView myListView = view.findViewById(R.id.statList);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, myDataList);
-
-        //read from database
-        GetStatistics handleStatistics = new DBHelper(getActivity());
-
-        List<StatRecord> statRecords = handleStatistics.getStatisticsData();
-        for(StatRecord record : statRecords){
-            myDataList.add(record.toString());
-        }
-
-        myListView.setAdapter(myAdapter);
-         */
     }
 
     public void loadStatistics(View view){
@@ -71,5 +52,3 @@ public class Statistics extends Fragment {
     }
 
 }
-
-//https://developer.android.com/topic/performance/vitals/render - lepiej uzyc DiffUtil zamiast notifyDataSetChanged dla malych zmian

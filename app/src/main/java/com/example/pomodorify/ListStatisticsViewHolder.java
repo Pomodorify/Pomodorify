@@ -4,7 +4,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 public class ListStatisticsViewHolder extends RecyclerView.ViewHolder{
 
     private final TextView itemData;
@@ -16,9 +15,10 @@ public class ListStatisticsViewHolder extends RecyclerView.ViewHolder{
         view.findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //listStatisticsAdapter.statisticsData.get(getAdapterPosition());
+                //remove from database
                 listStatisticsAdapter.removeSelectedStatistic.removeSelectedStatistic(listStatisticsAdapter.statisticsData.get(getAdapterPosition()).id);
 
+                //update adapter (UI)
                 listStatisticsAdapter.statisticsData.remove(getAdapterPosition());
                 listStatisticsAdapter.notifyItemRemoved(getAdapterPosition());
 
