@@ -16,10 +16,12 @@ import java.util.List;
  */
 
 public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsViewHolder> {
-    public List<String> statisticsData;
+    public List<StatRecord> statisticsData;
+    public RemoveSelectedStatistic removeSelectedStatistic;
 
-    public ListStatisticsAdapter(List<String> statisticsData) {
+    public ListStatisticsAdapter(List<StatRecord> statisticsData, RemoveSelectedStatistic removeSelectedStatistic) {
         this.statisticsData = statisticsData;
+        this.removeSelectedStatistic = removeSelectedStatistic;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsVi
     }
     @Override
     public void onBindViewHolder(ListStatisticsViewHolder holder, int position) {
-        holder.getTextView().setText(statisticsData.get(position));
+        holder.getTextView().setText(statisticsData.get(position).toString());
     }
     @Override
     public int getItemCount() {

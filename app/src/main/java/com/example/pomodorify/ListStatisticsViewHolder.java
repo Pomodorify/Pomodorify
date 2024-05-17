@@ -17,6 +17,7 @@ public class ListStatisticsViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View v) {
                 //listStatisticsAdapter.statisticsData.get(getAdapterPosition());
+                listStatisticsAdapter.removeSelectedStatistic.removeSelectedStatistic(listStatisticsAdapter.statisticsData.get(getAdapterPosition()).id);
 
                 listStatisticsAdapter.statisticsData.remove(getAdapterPosition());
                 listStatisticsAdapter.notifyItemRemoved(getAdapterPosition());

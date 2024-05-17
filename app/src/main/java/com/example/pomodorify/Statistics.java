@@ -61,9 +61,12 @@ public class Statistics extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         GetStatistics getStatistics = new DBHelper(getActivity());
-        List<String> statisticsRecords = getStatistics.getStatisticsDataFormatted();
+        List<StatRecord> statisticsRecords = getStatistics.getStatisticsData();
 
-        ListStatisticsAdapter listStatisticsAdapter = new ListStatisticsAdapter(statisticsRecords);
+        //tego nie trzeba bedzie tak przekazywac jak zmienie DBHelper na singleton
+        RemoveSelectedStatistic removeSelectedStatistic = new DBHelper(getContext());
+
+        ListStatisticsAdapter listStatisticsAdapter = new ListStatisticsAdapter(statisticsRecords, removeSelectedStatistic);
         recyclerView.setAdapter(listStatisticsAdapter);
     }
 
