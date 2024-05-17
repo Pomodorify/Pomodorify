@@ -2,12 +2,9 @@ package com.example.pomodorify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -17,11 +14,13 @@ import java.util.List;
 
 public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsViewHolder> {
     public List<StatRecord> statisticsData;
+    private final boolean[] cardStateExpanded;
     public RemoveSelectedStatistic removeSelectedStatistic;
 
     public ListStatisticsAdapter(List<StatRecord> statisticsData, RemoveSelectedStatistic removeSelectedStatistic) {
         this.statisticsData = statisticsData;
         this.removeSelectedStatistic = removeSelectedStatistic;
+        this.cardStateExpanded = new boolean[statisticsData.size()];
     }
 
     @Override
@@ -32,11 +31,27 @@ public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsVi
     }
     @Override
     public void onBindViewHolder(ListStatisticsViewHolder holder, int position) {
-        holder.getTextView().setText(statisticsData.get(position).toString());
+
+        if(cardStateExpanded[position]){
+            holder.statisticsDetails.setVisibility(View.VISIBLE);
+        }else{
+            holder.statisticsDetails.setVisibility(View.GONE);
+        }
+
+        String activity = statisticsData.get(position).getActivity();
+        if(activity.isEmpty())
+            activity = "Focus";
+
+        holder.getItemActivity().setText(activity);
+        holder.getItemDuration().setText("Duration: " + statisticsData.get(position).getTime());
+        holder.getItemDate().setText("Date: " + statisticsData.get(position).getFormattedDate());
     }
     @Override
     public int getItemCount() {
         return statisticsData.size();
     }
 
+    public void changeCardState(int index){
+        cardStateExpanded[index] = !cardStateExpanded[index];
+    }
 }

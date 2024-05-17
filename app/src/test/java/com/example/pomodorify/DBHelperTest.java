@@ -47,8 +47,8 @@ public class DBHelperTest {
         assertEquals(1, statisticsData.size());
 
         StatRecord record = statisticsData.get(0);
-        assertEquals("Sample Activity", record.activity);
-        assertEquals(100, record.time);
+        assertEquals("Sample Activity", record.getActivity());
+        assertEquals(100, record.getTime());
     }
 
     @Test
@@ -62,12 +62,12 @@ public class DBHelperTest {
         assertEquals(3, statisticsData.size());
 
         StatRecord record = statisticsData.get(1);
-        assertEquals("Sample Activity2", record.activity);
-        assertEquals(200, record.time);
+        assertEquals("Sample Activity2", record.getActivity());
+        assertEquals(200, record.getTime());
 
         record = statisticsData.get(2);
-        assertEquals("Sample Activity3", record.activity);
-        assertEquals(300, record.time);
+        assertEquals("Sample Activity3", record.getActivity());
+        assertEquals(300, record.getTime());
     }
 
     @Test
