@@ -7,11 +7,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ListStatisticsViewHolder extends RecyclerView.ViewHolder{
-
     private final TextView itemActivity;
     private final TextView itemDuration;
     private final TextView itemDate;
-    public LinearLayout statisticsDetails;
+    private final LinearLayout statisticsDetails;
 
     public ListStatisticsViewHolder(View view, ListStatisticsAdapter listStatisticsAdapter) {
         super(view);
@@ -55,5 +54,8 @@ public class ListStatisticsViewHolder extends RecyclerView.ViewHolder{
     }
     public TextView getItemDate() {
         return itemDate;
+    }
+    public LinearLayout getStatisticsDetails() {
+        return statisticsDetails;
     }
 }

@@ -7,11 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-/*
-    Adapter fills views.
-    ViewHolder is just single view.
- */
-
 public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsViewHolder> {
     public List<StatRecord> statisticsData;
     private final boolean[] cardStateExpanded;
@@ -33,9 +28,9 @@ public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsVi
     public void onBindViewHolder(ListStatisticsViewHolder holder, int position) {
 
         if(cardStateExpanded[position]){
-            holder.statisticsDetails.setVisibility(View.VISIBLE);
+            holder.getStatisticsDetails().setVisibility(View.VISIBLE);
         }else{
-            holder.statisticsDetails.setVisibility(View.GONE);
+            holder.getStatisticsDetails().setVisibility(View.GONE);
         }
 
         String activity = statisticsData.get(position).getActivity();
