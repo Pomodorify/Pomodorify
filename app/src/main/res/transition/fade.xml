@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionManager xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- res/transition/fade.xml -->
+    <fade xmlns:android="http://schemas.android.com/apk/res/android"
+        android:duration="@android:integer/config_shortAnimTime"/>
+</transitionManager>
