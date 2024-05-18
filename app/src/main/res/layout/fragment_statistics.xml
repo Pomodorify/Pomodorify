@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Statistics">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ListView
-        android:id="@+id/statList"
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statisticsList"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="30sp"
-        android:layout_marginTop="40sp"/>
+        android:layout_weight="1" />
 
-</FrameLayout>
+</LinearLayout>

@@ -3,12 +3,12 @@ package com.example.pomodorify;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,26 +29,29 @@ public class Statistics extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-        //zaladuj statystyki
-        fetchStatistics(view);
+        
+        loadStatistics(view);
+
         return view;
     }
 
-    public void fetchStatistics(View view){
-        //variables to display data
-        ArrayList<String> myDataList = new ArrayList<>();
-        ListView myListView = view.findViewById(R.id.statList);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, myDataList);
+    public void loadStatistics(View view){
+        RecyclerView recyclerView = view.findViewById(R.id.statisticsList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //read from database
-        GetStatistics handleStatistics = new DBHelper(getActivity());
+        GetStatistics getStatistics = new DBHelper(getActivity());
+        List<StatisticsRecord> statisticsRecords = getStatistics.getStatisticsData();
 
-        List<StatRecord> statRecords = handleStatistics.getStatisticsData();
-        for(StatRecord record : statRecords){
-            myDataList.add(record.toString());
+        //Connect record with its card state
+        List<StatisticsRecordCard> statisticsRecordCards = new ArrayList<>(statisticsRecords.size());
+        for(StatisticsRecord record : statisticsRecords){
+            statisticsRecordCards.add(new StatisticsRecordCard(record, false));
         }
 
-        myListView.setAdapter(myAdapter);
+        RemoveSelectedStatistic removeSelectedStatistic = new DBHelper(getContext());
+
+        ListStatisticsAdapter listStatisticsAdapter = new ListStatisticsAdapter(statisticsRecordCards, removeSelectedStatistic);
+        recyclerView.setAdapter(listStatisticsAdapter);
     }
 
 }

@@ -7,7 +7,7 @@ import org.robolectric.RobolectricTestRunner;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
-public class StatRecordTest {
+public class StatisticsRecordTest {
 
     @Test
     public void statRecord_toString() {
@@ -16,10 +16,10 @@ public class StatRecordTest {
         long date = 1618560000000L;
         String activity = "Work";
 
-        StatRecord statRecord = new StatRecord(id, time, date, activity);
+        StatisticsRecord statisticsRecord = new StatisticsRecord(id, time, date, activity);
 
         String expected = "Duration:1500\nDate:2021-04-16\nActivity:Work\n";
-        String actual = statRecord.toString();
+        String actual = statisticsRecord.toString();
 
         assertEquals(expected, actual);
     }

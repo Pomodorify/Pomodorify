@@ -30,10 +30,8 @@ public class MainActivity extends AppCompatActivity {
         //change to dark theme UI if user selected dark theme in Settings
         GetDarkThemePreferences getDarkThemePreferences = new DBHelper(this);
         if (getDarkThemePreferences.getDarkThemePreferences()) {
-            // setting theme to night mode
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
-            // setting theme to light theme
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
