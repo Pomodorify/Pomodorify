@@ -2,13 +2,13 @@ package com.example.pomodorify;
 
 import androidx.annotation.NonNull;
 
-public class StatRecord {
+public class StatisticsRecord {
     private long id;
     private long time;//dlugosc trwania
     private long date;//w jakim dniu byla robiona sesja
     private String activity;//co wpisal user w pole tekstowe
 
-    public StatRecord(long id, long time, long date, String activity) {
+    public StatisticsRecord(long id, long time, long date, String activity) {
         this.id = id;
         this.time = time;
         this.date = date;

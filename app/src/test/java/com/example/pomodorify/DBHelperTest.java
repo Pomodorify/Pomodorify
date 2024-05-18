@@ -42,11 +42,11 @@ public class DBHelperTest {
     public void testInsertGetStatisticsData() {
         dbHelper.insertStatistics(100, "Sample Activity");
 
-        List<StatRecord> statisticsData = dbHelper.getStatisticsData();
+        List<StatisticsRecord> statisticsData = dbHelper.getStatisticsData();
 
         assertEquals(1, statisticsData.size());
 
-        StatRecord record = statisticsData.get(0);
+        StatisticsRecord record = statisticsData.get(0);
         assertEquals("Sample Activity", record.getActivity());
         assertEquals(100, record.getTime());
     }
@@ -57,11 +57,11 @@ public class DBHelperTest {
         dbHelper.insertStatistics(200, "Sample Activity2");
         dbHelper.insertStatistics(300, "Sample Activity3");
 
-        List<StatRecord> statisticsData = dbHelper.getStatisticsData();
+        List<StatisticsRecord> statisticsData = dbHelper.getStatisticsData();
 
         assertEquals(3, statisticsData.size());
 
-        StatRecord record = statisticsData.get(1);
+        StatisticsRecord record = statisticsData.get(1);
         assertEquals("Sample Activity2", record.getActivity());
         assertEquals(200, record.getTime());
 

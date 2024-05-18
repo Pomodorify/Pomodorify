@@ -5,10 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, GetEndNotficationPreferences, SetEndNotificationPreferences, GetDarkThemePreferences, SetDarkThemePreferences, RemoveSelectedStatistic {
@@ -84,14 +82,14 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
             return true;
     }
 
-    public List<StatRecord> getStatisticsData(){
+    public List<StatisticsRecord> getStatisticsData(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(STAT_TABLE_NAME, null, null, null, null, null, STAT_ID + " DESC");
 
-        List<StatRecord> list = new ArrayList<>();
+        List<StatisticsRecord> list = new ArrayList<>();
 
         while(cursor.moveToNext()){
-            StatRecord record = new StatRecord(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3));
+            StatisticsRecord record = new StatisticsRecord(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3));
             list.add(record);
         }
         cursor.close();

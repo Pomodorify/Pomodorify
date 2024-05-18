@@ -26,7 +26,7 @@ public class ListStatisticsViewHolder extends RecyclerView.ViewHolder{
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listStatisticsAdapter.changeCardState(getAdapterPosition());
+                listStatisticsAdapter.statisticsRecordCard.get(getAdapterPosition()).changeExtended();
 
                 listStatisticsAdapter.notifyItemChanged(getAdapterPosition());
             }
@@ -36,10 +36,10 @@ public class ListStatisticsViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View v) {
                 //remove from database
-                listStatisticsAdapter.removeSelectedStatistic.removeSelectedStatistic(listStatisticsAdapter.statisticsData.get(getAdapterPosition()).getId());
+                listStatisticsAdapter.removeSelectedStatistic.removeSelectedStatistic(listStatisticsAdapter.statisticsRecordCard.get(getAdapterPosition()).getStatisticsRecord().getId());
 
                 //update adapter (UI)
-                listStatisticsAdapter.statisticsData.remove(getAdapterPosition());
+                listStatisticsAdapter.statisticsRecordCard.remove(getAdapterPosition());
                 listStatisticsAdapter.notifyItemRemoved(getAdapterPosition());
 
             }

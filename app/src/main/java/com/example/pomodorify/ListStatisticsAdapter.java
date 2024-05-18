@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsViewHolder> {
-    public List<StatRecord> statisticsData;
-    private final boolean[] cardStateExpanded;
+    public List<StatisticsRecordCard> statisticsRecordCard;
     public RemoveSelectedStatistic removeSelectedStatistic;
 
-    public ListStatisticsAdapter(List<StatRecord> statisticsData, RemoveSelectedStatistic removeSelectedStatistic) {
-        this.statisticsData = statisticsData;
+    public ListStatisticsAdapter(List<StatisticsRecordCard> statisticsRecordCard, RemoveSelectedStatistic removeSelectedStatistic) {
+        this.statisticsRecordCard = statisticsRecordCard;
         this.removeSelectedStatistic = removeSelectedStatistic;
-        this.cardStateExpanded = new boolean[statisticsData.size()];
     }
 
     @Override
@@ -27,26 +25,22 @@ public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsVi
     @Override
     public void onBindViewHolder(ListStatisticsViewHolder holder, int position) {
 
-        if(cardStateExpanded[position]){
+        if(statisticsRecordCard.get(position).getExtended()){
             holder.getStatisticsDetails().setVisibility(View.VISIBLE);
         }else{
             holder.getStatisticsDetails().setVisibility(View.GONE);
         }
 
-        String activity = statisticsData.get(position).getActivity();
+        String activity = statisticsRecordCard.get(position).getStatisticsRecord().getActivity();
         if(activity.isEmpty())
             activity = "Focus";
 
         holder.getItemActivity().setText(activity);
-        holder.getItemDuration().setText("Duration: " + statisticsData.get(position).getTime());
-        holder.getItemDate().setText("Date: " + statisticsData.get(position).getFormattedDate());
+        holder.getItemDuration().setText("Duration: " + statisticsRecordCard.get(position).getStatisticsRecord().getTime());
+        holder.getItemDate().setText("Date: " + statisticsRecordCard.get(position).getStatisticsRecord().getFormattedDate());
     }
     @Override
     public int getItemCount() {
-        return statisticsData.size();
-    }
-
-    public void changeCardState(int index){
-        cardStateExpanded[index] = !cardStateExpanded[index];
+        return statisticsRecordCard.size();
     }
 }

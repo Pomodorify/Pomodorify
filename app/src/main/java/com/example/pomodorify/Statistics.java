@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,7 @@ public class Statistics extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-
+        
         loadStatistics(view);
 
         return view;
@@ -42,12 +40,17 @@ public class Statistics extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         GetStatistics getStatistics = new DBHelper(getActivity());
-        List<StatRecord> statisticsRecords = getStatistics.getStatisticsData();
+        List<StatisticsRecord> statisticsRecords = getStatistics.getStatisticsData();
 
-        //tego nie trzeba bedzie tak przekazywac jak zmienie DBHelper na singleton
+        //Connect record with its card state
+        List<StatisticsRecordCard> statisticsRecordCards = new ArrayList<>(statisticsRecords.size());
+        for(StatisticsRecord record : statisticsRecords){
+            statisticsRecordCards.add(new StatisticsRecordCard(record, false));
+        }
+
         RemoveSelectedStatistic removeSelectedStatistic = new DBHelper(getContext());
 
-        ListStatisticsAdapter listStatisticsAdapter = new ListStatisticsAdapter(statisticsRecords, removeSelectedStatistic);
+        ListStatisticsAdapter listStatisticsAdapter = new ListStatisticsAdapter(statisticsRecordCards, removeSelectedStatistic);
         recyclerView.setAdapter(listStatisticsAdapter);
     }
 
