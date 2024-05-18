@@ -36,6 +36,16 @@ public class FragmentHandler {
 
     public void replaceFragment(Fragment fragment){//np. dostaje statystyki i zmienia sobie
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        //custom animation for fragment changing
+        if(fragment == getStatisticsFragment()){
+            fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.fade_out);
+        }else if(fragment == getSettingsFragment()){
+            fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.fade_out);
+        }else{
+            fragmentTransaction.setCustomAnimations(R.anim.slide_in_top, R.anim.fade_out);
+        }
+
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
