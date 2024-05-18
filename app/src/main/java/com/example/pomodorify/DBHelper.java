@@ -86,7 +86,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
     public List<StatRecord> getStatisticsData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(DBHelper.STAT_TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = db.query(STAT_TABLE_NAME, null, null, null, null, null, STAT_ID + " DESC");
 
         List<StatRecord> list = new ArrayList<>();
 
