@@ -37,15 +37,13 @@ public class FragmentHandler {
     public void replaceFragment(Fragment fragment){//np. dostaje statystyki i zmienia sobie
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        //rozne animacje na przejscia z roznych fragmentow, rozpisujemy kombinacje
+        //different animations based on origin and destination fragments
         if(getCurrentFragment() == getStatisticsFragment()){
-            //pomodoro i settings sa po prawej
             fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
         } else if(getCurrentFragment() == getSettingsFragment()){
-            //pomodoro i statistics sa po lewej
             fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
         } else{
-            //w zaleznosci od fragmentu animacja w prawo lub w lewo
+            //Pomodoro Fragment is in the middle so there are two options
             if(fragment == getSettingsFragment()){
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
             }else{
