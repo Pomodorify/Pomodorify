@@ -35,7 +35,7 @@ public class FragmentHandler {
         return fragmentManager.findFragmentById(R.id.frame_layout);
     }
 
-    public void replaceFragment(Fragment fragment){//np. dostaje statystyki i zmienia sobie
+    public void replaceFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         //different animations based on origin and destination fragments

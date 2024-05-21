@@ -34,11 +34,9 @@ import com.example.pomodorify.database.GetTimes;
 import com.example.pomodorify.database.SetDarkThemePreferences;
 import com.example.pomodorify.database.SetEndNotificationPreferences;
 
-
 public class Settings extends Fragment {
 
     public Settings() {
-        // Required empty public constructor
     }
 
     @Override
@@ -51,82 +49,41 @@ public class Settings extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        GetTimes getTimes = DBHelper.getInstance(getActivity());
-        ChangeTimes changeTimes = DBHelper.getInstance(getActivity());
+        setupDarkThemeButton(view);
 
-        //ustawienie dlugosci timera focus
-        SeekBar focusBar = view.findViewById(R.id.focusBar);
-        TextView focusDuration = view.findViewById(R.id.focusDuration);
-        int focusTime = getTimes.getFocusTime();
-        focusBar.setProgress(focusTime - 1);
-        focusDuration.setText(String.valueOf(focusTime));
-        focusBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        setupNotificationButton(view);
+
+        setupSoundButton(view);
+
+        setupTimerLengthButtons(view);
+
+        return view;
+    }
+
+    private void setupDarkThemeButton(View view){
+        GetDarkThemePreferences getDarkThemePreferences = DBHelper.getInstance(getActivity());
+
+        SwitchCompat darkThemeSwitch = (SwitchCompat) view.findViewById(R.id.themeSwitch);
+        darkThemeSwitch.setChecked(getDarkThemePreferences.getDarkThemePreferences());
+
+        darkThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                focusDuration.setText(String.valueOf(progress + 1));
-            }
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //remember user preferences
+                SetDarkThemePreferences setDarkThemePreferences = DBHelper.getInstance(getActivity());
+                setDarkThemePreferences.setDarkThemePreferences(isChecked);
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //wyslij do bazy danych
-                changeTimes.ChangeFocus(focusBar.getProgress() + 1);
-            }
-        });
-
-        //ustawienie dlugosci timera shortbreak
-        SeekBar shortBar = view.findViewById(R.id.shortBar);
-        TextView shortDuration = view.findViewById(R.id.shortDuration);
-        int shortTime = getTimes.getShortBreakTime();
-        shortBar.setProgress(shortTime - 1);
-        shortDuration.setText(String.valueOf(shortTime));
-        shortBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                shortDuration.setText(String.valueOf(progress + 1));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //wyslij do bazy danych
-                changeTimes.ChangeShortBreak(shortBar.getProgress() + 1);
+                //turn on/off dark theme
+                if(isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode (AppCompatDelegate.MODE_NIGHT_NO);
+                }
             }
         });
+    }
 
-        //ustawienie dlugosci timera long break
-        SeekBar longBar = view.findViewById(R.id.longBar);
-        TextView longDuration = view.findViewById(R.id.longDuration);
-        int longTime = getTimes.getLongBreakTime();
-        longBar.setProgress(longTime - 15);
-        longDuration.setText(String.valueOf(longTime));
-        longBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                longDuration.setText(String.valueOf(progress + 15));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //wyslij do bazy danych
-                changeTimes.ChangeLongBreak(longBar.getProgress() + 15);
-            }
-        });
-
-        //Notification and sound after timer ends buttons
+    private void setupNotificationButton(View view){
         SetEndNotificationPreferences setEndNotificationPreferences = DBHelper.getInstance(getActivity());
         GetEndNotficationPreferences getEndNotficationPreferences = DBHelper.getInstance(getActivity());
 
@@ -137,7 +94,7 @@ public class Settings extends Fragment {
         ActivityResultLauncher<String> requestPermissionLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                     if (!isGranted) {//user refused to give permission
-                        timerEndNotificationButton.setChecked(false);
+                        timerEndNotificationButton.setChecked(false);//switch button back to false
                     }
                 });
 
@@ -154,19 +111,25 @@ public class Settings extends Fragment {
 
                             timerEndNotificationButton.setChecked(false);//set to false because we don't know yet, if user will allow for notifications or not
 
+                            //redirect user to settings
                             Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                             Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
                             intent.setData(uri);
                             startActivity(intent);
                         }
-                        else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {//doesnt have permission
-                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                        else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);//ask for permission (when user hasn't declined permission before)
                         }
                     }
                 }
 
             }
         });
+    }
+
+    private void setupSoundButton(View view){
+        SetEndNotificationPreferences setEndNotificationPreferences = DBHelper.getInstance(getActivity());
+        GetEndNotficationPreferences getEndNotficationPreferences = DBHelper.getInstance(getActivity());
 
         ToggleButton timerEndSoundButton = (ToggleButton) view.findViewById(R.id.soundSessionFinished);
         timerEndSoundButton.setChecked(getEndNotficationPreferences.getEndSoundPreferences());
@@ -176,31 +139,89 @@ public class Settings extends Fragment {
                 setEndNotificationPreferences.setEndSoundPreferences(isChecked);
             }
         });
+    }
 
-        //read state of dark theme switch from db
-        GetDarkThemePreferences getDarkThemePreferences = DBHelper.getInstance(getActivity());
+    private void setupTimerLengthButtons(View view){
+        GetTimes getTimes = DBHelper.getInstance(getActivity());
+        ChangeTimes changeTimes = DBHelper.getInstance(getActivity());
 
-        SwitchCompat darkThemeSwitch = (SwitchCompat) view.findViewById(R.id.themeSwitch);
-        darkThemeSwitch.setChecked(getDarkThemePreferences.getDarkThemePreferences());
+        //setup settings for focus timer
+        SeekBar focusBar = view.findViewById(R.id.focusBar);
+        TextView focusDuration = view.findViewById(R.id.focusDuration);
 
-        //save state of dark theme switch from db
-        darkThemeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        int focusTime = getTimes.getFocusTime();
+
+        focusBar.setProgress(focusTime - 1);
+        focusDuration.setText(String.valueOf(focusTime));
+        focusBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //remember user preferences
-                SetDarkThemePreferences setDarkThemePreferences = DBHelper.getInstance(getActivity());
-                setDarkThemePreferences.setDarkThemePreferences(isChecked);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                focusDuration.setText(String.valueOf(progress + 1));
+            }
 
-                //set/disable dark theme
-                if(isChecked){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode (AppCompatDelegate.MODE_NIGHT_NO);
-                }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //save to database
+                changeTimes.ChangeFocus(focusBar.getProgress() + 1);
             }
         });
 
-        return view;
+        //setup settings for short break timer
+        SeekBar shortBar = view.findViewById(R.id.shortBar);
+        TextView shortDuration = view.findViewById(R.id.shortDuration);
+
+        int shortTime = getTimes.getShortBreakTime();
+
+        shortBar.setProgress(shortTime - 1);
+        shortDuration.setText(String.valueOf(shortTime));
+        shortBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                shortDuration.setText(String.valueOf(progress + 1));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //save to database
+                changeTimes.ChangeShortBreak(shortBar.getProgress() + 1);
+            }
+        });
+
+        //setup settings for long break timer
+        SeekBar longBar = view.findViewById(R.id.longBar);
+        TextView longDuration = view.findViewById(R.id.longDuration);
+
+        int longTime = getTimes.getLongBreakTime();
+
+        longBar.setProgress(longTime - 15);
+        longDuration.setText(String.valueOf(longTime));
+        longBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                longDuration.setText(String.valueOf(progress + 15));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //send to database
+                changeTimes.ChangeLongBreak(longBar.getProgress() + 15);
+            }
+        });
     }
 
 

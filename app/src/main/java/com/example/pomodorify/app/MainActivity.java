@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavHandler bottomNavHandler = new BottomNavHandler(new FragmentHandler(new Statistics(), new Pomodoro(), new Settings(), getSupportFragmentManager()), binding);
 
-        if(savedInstanceState == null){//jesli przywracam fragment (np. po restarcie aktywnosci po obrocie ekranu, to wtedy nie sie nie wywola)
+        //for example after screen orientation changes, activity restarts and calls onCreate, in such situation we don't want to call those methods again
+        if(savedInstanceState == null){
             bottomNavHandler.setDefaultSettings();
             createNotificationChannel();
         }

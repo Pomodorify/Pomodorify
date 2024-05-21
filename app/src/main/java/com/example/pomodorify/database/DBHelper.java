@@ -13,14 +13,14 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, GetEndNotficationPreferences, SetEndNotificationPreferences, GetDarkThemePreferences, SetDarkThemePreferences, RemoveSelectedStatistic {
 
-    //Singleton Desing Pattern
+    //fields used for Singleton Design Pattern
     private static DBHelper dbHelper;
 
     //fields used for statistics
     public static final String STAT_TABLE_NAME = "Statistics";
     public static final String STAT_ID = "id";
     public static final String STAT_TIME = "time";
-    public static final String STAT_DATE = "date";//W jakim dniu bylo robione pomodoro
+    public static final String STAT_DATE = "date";
     public static final String STAT_ACT = "activity";
 
     //fields used for user preferences
@@ -50,6 +50,9 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
             dbHelper.close();
     }
 
+    /*
+        Called when database is created for the first time
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
@@ -94,10 +97,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
         long result = db.insert(DBHelper.STAT_TABLE_NAME, null, values);
 
-        if(result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
     public List<StatisticsRecord> getStatisticsData(){
@@ -110,6 +110,7 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
             StatisticsRecord record = new StatisticsRecord(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), cursor.getString(3));
             list.add(record);
         }
+
         cursor.close();
         return list;
     }
