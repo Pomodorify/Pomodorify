@@ -43,8 +43,8 @@ public class Settings extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        GetTimes getTimes = new DBHelper(getActivity());
-        ChangeTimes changeTimes = new DBHelper(getActivity());
+        GetTimes getTimes = DBHelper.getInstance(getActivity());
+        ChangeTimes changeTimes = DBHelper.getInstance(getActivity());
 
         //ustawienie dlugosci timera focus
         SeekBar focusBar = view.findViewById(R.id.focusBar);
@@ -119,8 +119,8 @@ public class Settings extends Fragment {
         });
 
         //Notification and sound after timer ends buttons
-        SetEndNotificationPreferences setEndNotificationPreferences = new DBHelper(getActivity());
-        GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getActivity());
+        SetEndNotificationPreferences setEndNotificationPreferences = DBHelper.getInstance(getActivity());
+        GetEndNotficationPreferences getEndNotficationPreferences = DBHelper.getInstance(getActivity());
 
         ToggleButton timerEndNotificationButton = (ToggleButton) view.findViewById(R.id.notisSessionFinished);
         timerEndNotificationButton.setChecked(getEndNotficationPreferences.getEndNotificationPreferences());
@@ -170,7 +170,7 @@ public class Settings extends Fragment {
         });
 
         //read state of dark theme switch from db
-        GetDarkThemePreferences getDarkThemePreferences = new DBHelper(getActivity());
+        GetDarkThemePreferences getDarkThemePreferences = DBHelper.getInstance(getActivity());
 
         SwitchCompat darkThemeSwitch = (SwitchCompat) view.findViewById(R.id.themeSwitch);
         darkThemeSwitch.setChecked(getDarkThemePreferences.getDarkThemePreferences());
@@ -180,7 +180,7 @@ public class Settings extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //remember user preferences
-                SetDarkThemePreferences setDarkThemePreferences = new DBHelper(getActivity());
+                SetDarkThemePreferences setDarkThemePreferences = DBHelper.getInstance(getActivity());
                 setDarkThemePreferences.setDarkThemePreferences(isChecked);
 
                 //set/disable dark theme

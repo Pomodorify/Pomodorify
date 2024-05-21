@@ -23,7 +23,7 @@ public class DBHelperTest {
     public void setUp() {
         // Initialize Robolectric
         activity = Robolectric.buildActivity(MainActivity.class).create().start().resume().get();
-        dbHelper = new DBHelper(activity);
+        dbHelper = DBHelper.getInstance(activity);
     }
 
     @After

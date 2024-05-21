@@ -39,7 +39,7 @@ public class Statistics extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.statisticsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        GetStatistics getStatistics = new DBHelper(getActivity());
+        GetStatistics getStatistics = DBHelper.getInstance(getActivity());
         List<StatisticsRecord> statisticsRecords = getStatistics.getStatisticsData();
 
         //Connect record with its card state
@@ -48,7 +48,7 @@ public class Statistics extends Fragment {
             statisticsRecordCards.add(new StatisticsRecordCard(record, false));
         }
 
-        RemoveSelectedStatistic removeSelectedStatistic = new DBHelper(getContext());
+        RemoveSelectedStatistic removeSelectedStatistic = DBHelper.getInstance(getActivity());
 
         ListStatisticsAdapter listStatisticsAdapter = new ListStatisticsAdapter(statisticsRecordCards, removeSelectedStatistic);
         recyclerView.setAdapter(listStatisticsAdapter);
