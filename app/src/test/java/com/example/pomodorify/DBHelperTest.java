@@ -65,7 +65,7 @@ public class DBHelperTest {
         assertEquals("Sample Activity2", record.getActivity());
         assertEquals(200, record.getTime());
 
-        record = statisticsData.get(2);
+        record = statisticsData.get(0);
         assertEquals("Sample Activity3", record.getActivity());
         assertEquals(300, record.getTime());
     }
