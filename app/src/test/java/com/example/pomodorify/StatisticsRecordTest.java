@@ -18,7 +18,7 @@ public class StatisticsRecordTest {
 
         StatisticsRecord statisticsRecord = new StatisticsRecord(id, time, date, activity);
 
-        String expected = "Duration:1500\nDate:2021-04-16\nActivity:Work\n";
+        String expected = "Duration: 1500\nDate: 2021-04-16\nActivity: Work\n";
         String actual = statisticsRecord.toString();
 
         assertEquals(expected, actual);

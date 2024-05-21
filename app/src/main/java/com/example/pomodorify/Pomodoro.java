@@ -111,7 +111,7 @@ public class Pomodoro extends Fragment{
             }
         });
 
-        GetTimes getTimes = new DBHelper(getActivity());
+        GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getFocusTime();
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
 
@@ -139,7 +139,7 @@ public class Pomodoro extends Fragment{
             String activityLabel = activity.getText().toString();
 
             if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){//jesli sesja focus
-                InsertStatistics insertStatistics = new DBHelper(getActivity());
+                InsertStatistics insertStatistics = DBHelper.getInstance(getActivity());;
 
                 timer = new FocusTimer(minutes * 1000, 1000, timeLeft, insertStatistics, activityLabel, progressBar);
             }
@@ -167,7 +167,7 @@ public class Pomodoro extends Fragment{
     }
 
     private int getMinutesDatabase(int selectedId){
-        GetTimes getTimes = new DBHelper(getActivity());
+        GetTimes getTimes = DBHelper.getInstance(getActivity());
         if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){
             return getTimes.getFocusTime();
         }else if(selectedId == getActivity().findViewById(R.id.sBreakButton).getId()){
@@ -241,7 +241,7 @@ public class Pomodoro extends Fragment{
     }
 
     public void setFocus(){
-        GetTimes getTimes = new DBHelper(getActivity());
+        GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getFocusTime();
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
@@ -249,7 +249,7 @@ public class Pomodoro extends Fragment{
     }
 
     public void setLongBreak(){
-        GetTimes getTimes = new DBHelper(getActivity());
+        GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getLongBreakTime();
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
@@ -257,7 +257,7 @@ public class Pomodoro extends Fragment{
     }
 
     public void setShortBreak(){
-        GetTimes getTimes = new DBHelper(getActivity());
+        GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getShortBreakTime();
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
@@ -295,7 +295,7 @@ public class Pomodoro extends Fragment{
 
     private void sendNotificationIfPossible(String activityLabel){
         //Check user preferences regarding sending notification and act accordingly
-        GetEndNotficationPreferences getEndNotficationPreferences = new DBHelper(getContext());
+        GetEndNotficationPreferences getEndNotficationPreferences = DBHelper.getInstance(getActivity());
 
         boolean sound = getEndNotficationPreferences.getEndSoundPreferences();
         boolean notification = getEndNotficationPreferences.getEndNotificationPreferences();

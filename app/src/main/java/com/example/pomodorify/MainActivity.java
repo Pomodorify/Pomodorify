@@ -28,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //change to dark theme UI if user selected dark theme in Settings
-        GetDarkThemePreferences getDarkThemePreferences = new DBHelper(this);
+        GetDarkThemePreferences getDarkThemePreferences = DBHelper.getInstance(this);
         if (getDarkThemePreferences.getDarkThemePreferences()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        //this.deleteDatabase("Pomodorify.db");
+        //this.deleteDatabase("Pomodorify.db"); -- to remove local database (just for debugging, will remove this line later)
     }
 
     /*
@@ -53,4 +53,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy(){
+        DBHelper.closeConnection();
+        super.onDestroy();
+    }
 }

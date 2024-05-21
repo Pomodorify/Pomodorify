@@ -11,6 +11,9 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertStatistics, GetTimes, ChangeTimes, GetEndNotficationPreferences, SetEndNotificationPreferences, GetDarkThemePreferences, SetDarkThemePreferences, RemoveSelectedStatistic {
 
+    //Singleton Desing Pattern
+    private static DBHelper dbHelper;
+
     //fields used for statistics
     public static final String STAT_TABLE_NAME = "Statistics";
     public static final String STAT_ID = "id";
@@ -29,9 +32,22 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
     public static final String PREF_END_SOUND = "endSound";
 
 
-    public DBHelper(Context context){
+    private DBHelper(Context context){
         super(context, "Pomodorify.db", null, 1);
     }
+
+    public static DBHelper getInstance(Context context){
+        if(dbHelper == null){
+            dbHelper = new DBHelper(context);
+        }
+        return dbHelper;
+    }
+
+    public static void closeConnection(){
+        if(dbHelper != null)
+            dbHelper.close();
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
@@ -240,9 +256,3 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         int deletedRows = db.delete(STAT_TABLE_NAME, selection, selectionArgs);
     }
 }
-
-/*
-    - kursory napewno zamykamy (cursor.close()), baze danych nie koniecznie (db.close())
-    - z dokumentacji :   Since getWritableDatabase() and getReadableDatabase() are expensive to call when the
-     database is closed, you should leave your database connection open for as long as you possibly need to access it.
- */
