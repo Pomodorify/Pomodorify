@@ -7,7 +7,7 @@ import com.example.pomodorify.database.InsertStatistics;
 
 public class FocusTimer extends Timer {
 
-    private String activityLabel;//zeby wiedziec jaki text wstawic do bazy
+    private String activityLabel;
     private final int minutes;
     private InsertStatistics insertStatistics;
 

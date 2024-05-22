@@ -1,6 +1,5 @@
 package com.example.pomodorify.pomodoro;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -28,16 +27,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Pomodoro extends Fragment{
 
-    //findViewById() is a method that can be pretty hard on the performance (if called many times), so you should get all the views you need in onCreate and save them to an instance variable
-
-    private Timer timer;//do odliczania czasu
-    private Button btnStartStop;//zatrzymanie/start stopera
-    private TextView timeLeft;//do wyswietlania czasu
+    private Timer timer;
+    private Button btnStartStop;
+    private TextView timeLeft;
     private RadioGroup radioGroup;
-
-    private MediaPlayer mediaPlayer;//efekt dzwiekowy po zakonczeniu sesji
-
-    private ProgressBar progressBar;//do odliczania czasu
+    private ProgressBar progressBar;
 
     public Pomodoro() {
         // Required empty public constructor
@@ -53,7 +47,11 @@ public class Pomodoro extends Fragment{
     public void onStart() {//This function is called when a fragment becomes visible to the user. It is where you start any animations or update the UI.
         super.onStart();
 
-        if(timer == null){//jesli nie liczysz to wtedy ustaw czas w zaleznosci od tego co jest zaznaczone, jesli liczy to ontick to zmieni i tak
+        /*
+            if not counting then set timer based on which button is selected, usefull for example when user selects short timer,
+            goes to settings and goes back to pomodoro because fragment remember itself which button was chosen
+         */
+        if(timer == null){
             int selectedId = getSelectedRadioId(radioGroup);
             int time = getMinutesDatabase(selectedId);
 

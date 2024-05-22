@@ -1,6 +1,6 @@
 package com.example.pomodorify.database;
 
-public interface ChangeTimes {//z tego bedziemy korzystac w zakladce settings, a implementowac to bedzie DBHelper
+public interface ChangeTimes {
     void ChangeFocus(int minutes);
     void ChangeShortBreak(int minutes);
     void ChangeLongBreak(int minutes);

@@ -1,6 +1,5 @@
 package com.example.pomodorify.pomodoro;
 
-//import android.os.CountDownTimer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.os.SystemClock;

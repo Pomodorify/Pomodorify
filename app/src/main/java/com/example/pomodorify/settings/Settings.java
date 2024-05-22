@@ -55,7 +55,7 @@ public class Settings extends Fragment {
 
         setupSoundButton(view);
 
-        setupTimerLengthButtons(view);
+        setupTimerLengthChange(view);
 
         return view;
     }
@@ -93,7 +93,7 @@ public class Settings extends Fragment {
         //handles what to do according to whether user gave permission to send notification
         ActivityResultLauncher<String> requestPermissionLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                    if (!isGranted) {//user refused to give permission
+                    if (!isGranted) {//user refused to give permission for the first time
                         timerEndNotificationButton.setChecked(false);//switch button back to false
                     }
                 });
@@ -106,7 +106,7 @@ public class Settings extends Fragment {
                 if(isChecked){
                     //Handle request for permissions when user turns notifications on
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){//in earlier versions app will ask for permission on its own
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.POST_NOTIFICATIONS)) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.POST_NOTIFICATIONS)) {//when user declined permission before
                             Toast.makeText(getContext(), "You must give permission to send notifications first.", Toast.LENGTH_LONG).show();
 
                             timerEndNotificationButton.setChecked(false);//set to false because we don't know yet, if user will allow for notifications or not
@@ -128,20 +128,20 @@ public class Settings extends Fragment {
     }
 
     private void setupSoundButton(View view){
-        SetEndNotificationPreferences setEndNotificationPreferences = DBHelper.getInstance(getActivity());
         GetEndNotficationPreferences getEndNotficationPreferences = DBHelper.getInstance(getActivity());
 
         ToggleButton timerEndSoundButton = (ToggleButton) view.findViewById(R.id.soundSessionFinished);
         timerEndSoundButton.setChecked(getEndNotficationPreferences.getEndSoundPreferences());
-        timerEndSoundButton .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        timerEndSoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SetEndNotificationPreferences setEndNotificationPreferences = DBHelper.getInstance(getActivity());
                 setEndNotificationPreferences.setEndSoundPreferences(isChecked);
             }
         });
     }
 
-    private void setupTimerLengthButtons(View view){
+    private void setupTimerLengthChange(View view){
         GetTimes getTimes = DBHelper.getInstance(getActivity());
         ChangeTimes changeTimes = DBHelper.getInstance(getActivity());
 
@@ -223,7 +223,5 @@ public class Settings extends Fragment {
             }
         });
     }
-
-
 
 }

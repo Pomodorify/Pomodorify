@@ -1,5 +1,5 @@
 package com.example.pomodorify.statistics;
-import com.example.pomodorify.statistics.StatisticsRecord;
+
 public class StatisticsRecordCard {
     private StatisticsRecord statisticsRecord;
     private Boolean extended;
