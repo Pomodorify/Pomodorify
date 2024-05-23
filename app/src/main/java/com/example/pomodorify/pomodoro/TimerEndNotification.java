@@ -23,7 +23,7 @@ public class TimerEndNotification {
 
     public void buildStandardNotification(String displayText){
         builder = new NotificationCompat.Builder(context, "1")
-                .setSmallIcon(R.drawable.timer)
+                .setSmallIcon(R.drawable.timer_end_notification)
                 .setContentTitle("Session status changed")
                 .setContentText(displayText)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
