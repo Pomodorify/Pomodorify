@@ -119,35 +119,33 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getFocusTime();
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
 
-        //znajdz progress bar
         progressBar = view.findViewById(R.id.progressBar);
-        progressBar.setMax(time);//potem trzeba dodac *60 jesli zmienimy z odliczania sekund na minuty
+        progressBar.setMax(time);//add *60 after swaping to minutes
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    private void switchCounting(){//jesli nie odlicza to zacznij odliczac, jesli odlicza to przerwij odliczac, na to jest ustawiony onclick
+    private void switchCounting(){//if not counting then start counting, if counting then stop counting
 
-        //zamiast tego if .. else można dać zrobić state pattern: https://www.geeksforgeeks.org/state-design-pattern/
-        if(timer == null){//zacznij liczyc
+        if(timer == null){//then start counting
 
-            //Odczytaj rodzaj aktywnosci focus/break
+            //type of activity - focus/break
             int selectedId = getSelectedRadioId(radioGroup);
 
-            //pobierz ilosc minut z bazy danych dla danej aktywnosci
+            //get duration from database
             int minutes = getMinutesDatabase(selectedId);
 
-            //pobierz etykiete aktywnosci
+            //get activity label
             EditText activity = getActivity().findViewById(R.id.activity);
             String activityLabel = activity.getText().toString();
 
-            if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){//jesli sesja focus
+            if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){
                 InsertStatistics insertStatistics = DBHelper.getInstance(getActivity());;
 
                 timer = new FocusTimer(minutes * 1000, 1000, timeLeft, insertStatistics, activityLabel, progressBar);
             }
-            else//jesli sesja break
+            else
                 timer = new Timer(minutes * 1000, 1000, timeLeft, progressBar);
 
             timer.setCustomObjectListener(new NotifyPomodoro(){
@@ -160,11 +158,10 @@ public class Pomodoro extends Fragment{
                     resetCounting();
                 }
             });
-            //tutaj fajnie widać 3 zasade SOLID, nie wazne czy timer to Timer czy FocusTimer i tak sie poprawnie zachowa
             timer.start();
 
             setupCounting();
-        }else{//przestan liczyc
+        }else{//then stop counting
             timer.cancel();
             resetCounting();
         }
@@ -181,7 +178,7 @@ public class Pomodoro extends Fragment{
         }
     }
 
-    private void setupCounting(){//ustawia UI w tryb odliczania czyli np. pojawia sie przycisk pause
+    private void setupCounting(){//set UI to counting mode, so for example enables pause button etc.
 
         btnStartStop.setText("Reset");
 
@@ -190,7 +187,7 @@ public class Pomodoro extends Fragment{
         disableButtons();
     }
 
-    private void resetCounting(){//ustawia UI w tryb w ktorym nie odlicza
+    private void resetCounting(){//set UI to no counting mode
         timer = null;
         btnStartStop.setText("Start");
 
@@ -201,13 +198,11 @@ public class Pomodoro extends Fragment{
         Button continueButton = getActivity().findViewById(R.id.pauseButton);
         continueButton.setText("Pause");
 
-        //zaaktualizuj timer, np. wpisz 25 jesli wybrany focus
         int selectedId = getSelectedRadioId(radioGroup);
         int time = getMinutesDatabase(selectedId);
 
         timeLeft.setText(Utility.formatMillis((long)time * 1000));
 
-        //ustaw progressBar na 0
         progressBar.setProgress(0);
     }
 

@@ -8,12 +8,13 @@ import com.example.pomodorify.app.Utility;
 
 public class Timer extends CountDownTimer {
 
-    protected NotifyPomodoro listener;//tylko foucstimer lub braektimer moga z tego skorzystac bo protected
+    protected NotifyPomodoro listener;
+
     protected TextView timeLeft;
 
     protected ProgressBar progressBar;
 
-    private long mPauseTime;//do ponownego uruchomienia timera
+    private long mPauseTime;//for pause functionality
 
     public void setCustomObjectListener(NotifyPomodoro listener) {
         this.listener = listener;
@@ -30,13 +31,12 @@ public class Timer extends CountDownTimer {
     public void onTick(long millisUntilFinished) {
         String time = Utility.formatMillis(millisUntilFinished);
         timeLeft.setText(time);
-        progressBar.setProgress((int) (millisUntilFinished/1000));//update progressbar
+        progressBar.setProgress((int) (millisUntilFinished/1000));
     }
 
     @Override
     public void onFinish() {
-        //timer break wiec nie wstawia statystyk
-        if (listener != null)//powiadom pomodor o tym ze przestales liczyc
+        if (listener != null)//notify pomodoro.java that you stopped counting so that it can update UI
             listener.onFinish();
     }
 

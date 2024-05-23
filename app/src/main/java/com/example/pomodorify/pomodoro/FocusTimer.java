@@ -7,9 +7,9 @@ import com.example.pomodorify.database.InsertStatistics;
 
 public class FocusTimer extends Timer {
 
-    private String activityLabel;
+    private final String activityLabel;
     private final int minutes;
-    private InsertStatistics insertStatistics;
+    private final InsertStatistics insertStatistics;
 
     FocusTimer(long millisInFuture, long countDownInterval, TextView timeLeft, InsertStatistics insertStatistics, String activityLabel, ProgressBar progressBar){
         super(millisInFuture, countDownInterval, timeLeft, progressBar);
@@ -20,9 +20,8 @@ public class FocusTimer extends Timer {
 
     @Override
     public void onFinish() {
-        //timer focus wiec musi wstawic statystyki
         insertStatistics.insertStatistics(minutes, activityLabel);
 
-        super.onFinish();//wywolaj metode z timer
+        super.onFinish();
     }
 }
