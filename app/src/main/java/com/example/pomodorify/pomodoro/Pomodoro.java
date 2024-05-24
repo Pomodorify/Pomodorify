@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -44,24 +45,6 @@ public class Pomodoro extends Fragment{
     }
 
     @Override
-    public void onStart() {//This function is called when a fragment becomes visible to the user. It is where you start any animations or update the UI.
-        super.onStart();
-
-        /*
-            if not counting then set timer based on which button is selected, usefull for example when user selects short timer,
-            goes to settings and goes back to pomodoro because fragment remember itself which button was chosen
-         */
-        if(timer == null){
-            int selectedId = getSelectedRadioId(radioGroup);
-            int time = getMinutesDatabase(selectedId);
-
-            timeLeft.setText(Utility.formatMillis(time * 1000));
-            progressBar.setMax(time);
-        }
-
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         if(timer != null)
@@ -88,22 +71,28 @@ public class Pomodoro extends Fragment{
         RadioButton FocusButton = radioGroup.findViewById(R.id.FocusButton);
         RadioButton sBreakButton = radioGroup.findViewById(R.id.sBreakButton);
         RadioButton lBreakButton = radioGroup.findViewById(R.id.lBreakButton);
-        FocusButton.setOnClickListener(new View.OnClickListener() {
+
+        FocusButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                setFocus();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    setFocus();
             }
         });
-        sBreakButton.setOnClickListener(new View.OnClickListener() {
+
+        sBreakButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                setShortBreak();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    setShortBreak();
             }
         });
-        lBreakButton.setOnClickListener(new View.OnClickListener() {
+
+        lBreakButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                setLongBreak();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    setLongBreak();
             }
         });
 
