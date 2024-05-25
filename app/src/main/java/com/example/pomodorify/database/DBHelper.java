@@ -115,9 +115,9 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         return list;
     }
 
-    public int getFocusTime(){
+    public int getTimes(String timerType){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PREF_FOCUS_LENGTH + " FROM " + PREF_TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT " + timerType + " FROM " + PREF_TABLE_NAME, null);
 
         int returnVal = -1;
 
@@ -126,32 +126,18 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
 
         cursor.close();
         return returnVal;
+    }
+
+    public int getFocusTime(){
+        return getTimes(PREF_FOCUS_LENGTH);
     }
 
     public int getShortBreakTime(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PREF_SHORT_LENGTH + " FROM " + PREF_TABLE_NAME, null);
-
-        int returnVal = -1;
-
-        if(cursor.moveToFirst())
-            returnVal = cursor.getInt(0);
-
-        cursor.close();
-        return returnVal;
+        return getTimes(PREF_SHORT_LENGTH);
     }
 
     public int getLongBreakTime(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PREF_LONG_LENGTH + " FROM " + PREF_TABLE_NAME, null);
-
-        int returnVal = -1;
-
-        if(cursor.moveToFirst())
-            returnVal = cursor.getInt(0);
-
-        cursor.close();
-        return returnVal;
+        return getTimes(PREF_LONG_LENGTH);
     }
 
     public void ChangeTimerLength(int duration, String timerType) {
