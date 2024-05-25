@@ -106,10 +106,10 @@ public class Pomodoro extends Fragment{
 
         GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getFocusTime();
-        timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
 
         progressBar = view.findViewById(R.id.progressBar);
-        progressBar.setMax(time);//add *60 after swaping to minutes
+        progressBar.setMax((int) Utility.SecondsToMinutesOnRelease((long) time));
 
         // Inflate the layout for this fragment
         return view;
@@ -132,10 +132,10 @@ public class Pomodoro extends Fragment{
             if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){
                 InsertStatistics insertStatistics = DBHelper.getInstance(getActivity());;
 
-                timer = new FocusTimer(minutes * 1000, 1000, timeLeft, insertStatistics, activityLabel, progressBar);
+                timer = new FocusTimer(Utility.SecondsToMinutesOnRelease(minutes * 1000), 1000, timeLeft, insertStatistics, activityLabel, progressBar);
             }
             else
-                timer = new Timer(minutes * 1000, 1000, timeLeft, progressBar);
+                timer = new Timer(Utility.SecondsToMinutesOnRelease(minutes * 1000), 1000, timeLeft, progressBar);
 
             timer.setCustomObjectListener(new NotifyPomodoro(){
                 @Override
@@ -190,7 +190,7 @@ public class Pomodoro extends Fragment{
         int selectedId = getSelectedRadioId(radioGroup);
         int time = getMinutesDatabase(selectedId);
 
-        timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
 
         progressBar.setProgress(0);
     }
@@ -232,7 +232,7 @@ public class Pomodoro extends Fragment{
         GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getFocusTime();
 
-        timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
         progressBar.setMax(time);
     }
 
@@ -240,7 +240,7 @@ public class Pomodoro extends Fragment{
         GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getLongBreakTime();
 
-        timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
         progressBar.setMax(time);
     }
 
@@ -248,7 +248,7 @@ public class Pomodoro extends Fragment{
         GetTimes getTimes = DBHelper.getInstance(getActivity());
         int time = getTimes.getShortBreakTime();
 
-        timeLeft.setText(Utility.formatMillis((long)time * 1000));
+        timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
         progressBar.setMax(time);
     }
 

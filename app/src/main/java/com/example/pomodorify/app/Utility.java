@@ -25,4 +25,11 @@ public final class Utility {
 
         return String.format("%02d : %02d",MM, SS);
     }
+
+    public static long SecondsToMinutesOnRelease(long seconds){
+        if(MainActivity.release)
+            return seconds * 60;
+        return seconds;
+    }
+
 }
