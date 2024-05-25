@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.pomodorify.R;
 import com.example.pomodorify.app.FragmentHandler;
 import com.example.pomodorify.app.MainActivity;
+import com.example.pomodorify.database.DBHelper;
 import com.example.pomodorify.pomodoro.Pomodoro;
 import com.example.pomodorify.settings.Settings;
 import com.example.pomodorify.statistics.Statistics;
@@ -46,6 +47,12 @@ public class FragmentHandlerTest {
         fragmentHandler = new FragmentHandler(statistics, pomodoro, settings, fragmentManager);
     }
 
+    @After
+    public void SetDown(){
+        activity.finish();
+        DBHelper.closeConnection();
+    }
+
     @Test
     public void testGetStatistics(){
         assertEquals(statistics, fragmentHandler.getStatisticsFragment());
@@ -75,9 +82,4 @@ public class FragmentHandlerTest {
         assertNotEquals(fragment, statistics);
     }
 
-    @After
-    public void tearDown() {
-        // Close the activity to release resources
-        activity.finish();
-    }
 }

@@ -12,11 +12,13 @@ import com.example.pomodorify.R;
 import com.example.pomodorify.app.BottomNavHandler;
 import com.example.pomodorify.app.FragmentHandler;
 import com.example.pomodorify.app.MainActivity;
+import com.example.pomodorify.database.DBHelper;
 import com.example.pomodorify.pomodoro.Pomodoro;
 import com.example.pomodorify.settings.Settings;
 import com.example.pomodorify.statistics.Statistics;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +44,12 @@ public class BottomNavHandlerTest {
         settings = new Settings();
         fragmentHandler = new FragmentHandler(statistics, pomodoro, settings, activity.getSupportFragmentManager());
         bottomNavHandler = new BottomNavHandler(fragmentHandler, activity.binding);
+    }
+
+    @After
+    public void SetDown(){
+        activity.finish();
+        DBHelper.closeConnection();
     }
 
     @Test

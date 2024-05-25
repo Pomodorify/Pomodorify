@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import android.util.Log;
+
 import com.example.pomodorify.app.MainActivity;
 import com.example.pomodorify.database.DBHelper;
 import com.example.pomodorify.statistics.StatisticsRecord;
@@ -32,7 +34,10 @@ public class DBHelperTest {
 
     @After
     public void SetDown(){
+        if(!activity.deleteDatabase("Pomodorify.db"))
+            Log.d("Database", "Database not deleted wtf");
         activity.finish();
+        DBHelper.closeConnection();
     }
 
     @Test
@@ -91,8 +96,8 @@ public class DBHelperTest {
 
     @Test
     public void setFocusTest(){
-        dbHelper.ChangeTimerLength(101, DBHelper.PREF_FOCUS_LENGTH);
-        assertEquals(dbHelper.getFocusTime(), 101);
+        dbHelper.ChangeTimerLength(60, DBHelper.PREF_FOCUS_LENGTH);
+        assertEquals(dbHelper.getFocusTime(), 60);
     }
 
     @Test

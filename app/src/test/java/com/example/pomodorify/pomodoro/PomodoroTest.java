@@ -7,8 +7,10 @@ import android.widget.TextView;
 
 import com.example.pomodorify.R;
 import com.example.pomodorify.app.MainActivity;
+import com.example.pomodorify.database.DBHelper;
 import com.example.pomodorify.pomodoro.Pomodoro;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,12 @@ public class PomodoroTest {
     public void setUp() {
         activity = Robolectric.buildActivity(MainActivity.class).create().start().resume().get();
         pomodoro = (Pomodoro) activity.getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+    }
+
+    @After
+    public void SetDown(){
+        activity.finish();
+        DBHelper.closeConnection();
     }
 
     @Test
