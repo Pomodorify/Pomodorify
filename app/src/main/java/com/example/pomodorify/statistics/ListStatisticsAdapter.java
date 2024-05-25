@@ -39,7 +39,7 @@ public class ListStatisticsAdapter extends RecyclerView.Adapter<ListStatisticsVi
             activity = "Focus";
 
         holder.getItemActivity().setText(activity);
-        holder.getItemDuration().setText("Duration: " + statisticsRecordCard.get(position).getStatisticsRecord().getTime() + "minutes");
+        holder.getItemDuration().setText("Duration: " + statisticsRecordCard.get(position).getStatisticsRecord().getTime() + " min");
         holder.getItemDate().setText("Date: " + statisticsRecordCard.get(position).getStatisticsRecord().getFormattedDate());
     }
     @Override
