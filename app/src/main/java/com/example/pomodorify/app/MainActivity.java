@@ -16,11 +16,17 @@ import com.example.pomodorify.settings.Settings;
 import com.example.pomodorify.statistics.Statistics;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static boolean release;// If true then counting is in minutes, if false then counting is in seconds (for example for debbuging)
+
     ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        release = true;
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
