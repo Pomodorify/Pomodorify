@@ -1,7 +1,6 @@
 package com.example.pomodorify.database;
 
+@FunctionalInterface
 public interface ChangeTimes {
-    void ChangeFocus(int minutes);
-    void ChangeShortBreak(int minutes);
-    void ChangeLongBreak(int minutes);
+    public void ChangeTimerLength(int duration, String timerType);
 }

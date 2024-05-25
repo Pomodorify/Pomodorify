@@ -154,28 +154,11 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         return returnVal;
     }
 
-    public void ChangeFocus(int duration) {
+    public void ChangeTimerLength(int duration, String timerType) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PREF_FOCUS_LENGTH, duration);
-
-        db.update(PREF_TABLE_NAME, values, null, null);
-    }
-
-    public void ChangeShortBreak(int duration) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(PREF_SHORT_LENGTH, duration);
-
-        db.update(PREF_TABLE_NAME, values, null, null);
-    }
-    public void ChangeLongBreak(int duration) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(PREF_LONG_LENGTH, duration);
+        values.put(timerType, duration);
 
         db.update(PREF_TABLE_NAME, values, null, null);
     }

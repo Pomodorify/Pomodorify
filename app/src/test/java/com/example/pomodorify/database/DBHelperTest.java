@@ -91,19 +91,19 @@ public class DBHelperTest {
 
     @Test
     public void setFocusTest(){
-        dbHelper.ChangeFocus(101);
+        dbHelper.ChangeTimerLength(101, DBHelper.PREF_FOCUS_LENGTH);
         assertEquals(dbHelper.getFocusTime(), 101);
     }
 
     @Test
     public void setShortBreakTest(){
-        dbHelper.ChangeShortBreak(15);
+        dbHelper.ChangeTimerLength(15, DBHelper.PREF_SHORT_LENGTH);
         assertEquals(dbHelper.getShortBreakTime(), 15);
     }
 
     @Test
     public void setLongBreakTest(){
-        dbHelper.ChangeLongBreak(27);
+        dbHelper.ChangeTimerLength(27, DBHelper.PREF_LONG_LENGTH);
         assertEquals(dbHelper.getLongBreakTime(), 27);
     }
 }

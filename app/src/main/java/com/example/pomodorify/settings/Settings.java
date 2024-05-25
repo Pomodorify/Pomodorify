@@ -148,67 +148,36 @@ public class Settings extends Fragment {
         //setup settings for focus timer
         SeekBar focusBar = view.findViewById(R.id.focusBar);
         TextView focusDuration = view.findViewById(R.id.focusDuration);
-
         int focusTime = getTimes.getFocusTime();
 
-        focusBar.setProgress(focusTime - 1);
-        focusDuration.setText(String.valueOf(focusTime));
-        focusBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                focusDuration.setText(String.valueOf(progress + 1));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //save to database
-                changeTimes.ChangeFocus(focusBar.getProgress() + 1);
-            }
-        });
+        setupTimerSeekbar(focusBar, focusDuration, focusTime, 1, changeTimes, DBHelper.PREF_FOCUS_LENGTH);
 
         //setup settings for short break timer
         SeekBar shortBar = view.findViewById(R.id.shortBar);
         TextView shortDuration = view.findViewById(R.id.shortDuration);
-
         int shortTime = getTimes.getShortBreakTime();
 
-        shortBar.setProgress(shortTime - 1);
-        shortDuration.setText(String.valueOf(shortTime));
-        shortBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                shortDuration.setText(String.valueOf(progress + 1));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //save to database
-                changeTimes.ChangeShortBreak(shortBar.getProgress() + 1);
-            }
-        });
+        setupTimerSeekbar(shortBar, shortDuration, shortTime, 1, changeTimes, DBHelper.PREF_SHORT_LENGTH);
 
         //setup settings for long break timer
         SeekBar longBar = view.findViewById(R.id.longBar);
         TextView longDuration = view.findViewById(R.id.longDuration);
-
         int longTime = getTimes.getLongBreakTime();
 
-        longBar.setProgress(longTime - 15);
-        longDuration.setText(String.valueOf(longTime));
-        longBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        setupTimerSeekbar(longBar, longDuration, longTime, 15, changeTimes, DBHelper.PREF_LONG_LENGTH);
+    }
+
+    /*
+        int adjust is the minimum value of progressbar
+     */
+    private void setupTimerSeekbar(SeekBar seekBar, TextView durationText, int duration, int adjust, ChangeTimes changeTimes, String timerType){
+        seekBar.setProgress(duration - adjust);
+        durationText.setText(String.valueOf(duration));
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                longDuration.setText(String.valueOf(progress + 15));
+                durationText.setText(String.valueOf(progress + adjust));
             }
 
             @Override
@@ -218,10 +187,8 @@ public class Settings extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                //send to database
-                changeTimes.ChangeLongBreak(longBar.getProgress() + 15);
+                changeTimes.ChangeTimerLength(seekBar.getProgress() + adjust, timerType);
             }
         });
     }
-
 }
