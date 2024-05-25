@@ -225,6 +225,6 @@ public class DBHelper extends SQLiteOpenHelper implements GetStatistics, InsertS
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = STAT_ID + " LIKE ?";
         String[] selectionArgs = { String.valueOf(index) };
-        int deletedRows = db.delete(STAT_TABLE_NAME, selection, selectionArgs);
+        db.delete(STAT_TABLE_NAME, selection, selectionArgs);
     }
 }
