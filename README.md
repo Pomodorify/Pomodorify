@@ -23,18 +23,18 @@ Pomodorify is a productivity-focused mobile application designed to enhance your
 
 **Get Started:**
 
-1. **Download:** Install Pomodorify from the Google Play Store.
+1. **Download:** Install Pomodorify from the F-Droid repository (app is not released yet).
 2. **Set Goals:** Define your task and set timers to begin your focused work session.
 3. **Track Progress:** Monitor your productivity and analyze your performance through detailed statistics.
 4. **Stay Motivated:** Stay motivated and track your progress using statistics.
 
 **Contribute:**
 
-We welcome contributions from developers and users alike! Whether it's bug fixes, feature enhancements, or feedback, your input helps us improve Pomodorify for everyone. Feel free to submit issues, pull requests, or reach out to us directly.
+Whether it's bug fixes, feature enhancements, or feedback, your input helps us improve Pomodorify for everyone. Feel free to submit issues, pull requests, or reach out to us directly.
 
 **License:**
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/YourOrganization/Pomodorify/blob/main/LICENSE) file for details.
+This project is licensed under the GNU GENERAL PUBLIC License - see the [LICENSE](https://github.com/Pomodorify/Pomodorify/blob/master/LICENSE) file for details.
 
 ## Development Stack
 
