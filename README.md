@@ -23,7 +23,7 @@ Pomodorify is a productivity-focused mobile application designed to enhance your
 
 **Get Started:**
 
-1. **Download:** Install Pomodorify from the F-Droid repository (app is not released yet).
+1. **Download:** Install Pomodorify.apk from the latest release - [RELEASES](https://github.com/Pomodorify/Pomodorify/blob/master/LICENSE).
 2. **Set Goals:** Define your task and set timers to begin your focused work session.
 3. **Track Progress:** Monitor your productivity and analyze your performance through detailed statistics.
 4. **Stay Motivated:** Stay motivated and track your progress using statistics.
