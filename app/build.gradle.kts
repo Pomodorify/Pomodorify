@@ -28,10 +28,10 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true//potrzebne do bingding w MainActivity
+        viewBinding = true//needed for binding MainActivity
     }
 
-    //potrzebne do Robolectric
+    //needed for robolectric
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -48,6 +48,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    testImplementation("org.mockito:mockito-core:3.12.4")//do testów
-    testImplementation("org.robolectric:robolectric:4.12.1")//do testów
+    testImplementation("org.mockito:mockito-core:3.12.4")//for unit tests
+    testImplementation("org.robolectric:robolectric:4.12.1")//for unit tests
 }

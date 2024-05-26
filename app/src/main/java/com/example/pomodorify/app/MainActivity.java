@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         applyDarkTheme();
 
-        //this.deleteDatabase("Pomodorify.db"); -- to remove local database (just for debugging, will remove this line later)
+        //this.deleteDatabase("Pomodorify.db"); // to remove local database (just for debugging, will remove this line later)
     }
 
     @Override
