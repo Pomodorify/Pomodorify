@@ -11,9 +11,9 @@ public class FocusTimer extends Timer {
     private final int minutes;
     private final InsertStatistics insertStatistics;
 
-    FocusTimer(long millisInFuture, long countDownInterval, TextView timeLeft, InsertStatistics insertStatistics, String activityLabel, ProgressBar progressBar){
-        super(millisInFuture, countDownInterval, timeLeft, progressBar);
-        this.minutes = (int)millisInFuture / 1000;
+    FocusTimer(int minutes, long countDownInterval, TextView timeLeft, InsertStatistics insertStatistics, String activityLabel, ProgressBar progressBar){
+        super(minutes, countDownInterval, timeLeft, progressBar);
+        this.minutes = minutes;
         this.insertStatistics = insertStatistics;
         this.activityLabel = activityLabel;
     }

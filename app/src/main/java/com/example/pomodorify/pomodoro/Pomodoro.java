@@ -132,10 +132,10 @@ public class Pomodoro extends Fragment{
             if(selectedId == getActivity().findViewById(R.id.FocusButton).getId()){
                 InsertStatistics insertStatistics = DBHelper.getInstance(getActivity());;
 
-                timer = new FocusTimer(Utility.SecondsToMinutesOnRelease(minutes * 1000), 1000, timeLeft, insertStatistics, activityLabel, progressBar);
+                timer = new FocusTimer(minutes, 1000, timeLeft, insertStatistics, activityLabel, progressBar);
             }
             else
-                timer = new Timer(Utility.SecondsToMinutesOnRelease(minutes * 1000), 1000, timeLeft, progressBar);
+                timer = new Timer(minutes, 1000, timeLeft, progressBar);
 
             timer.setCustomObjectListener(new NotifyPomodoro(){
                 @Override

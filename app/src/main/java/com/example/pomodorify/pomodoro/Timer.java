@@ -20,8 +20,8 @@ public class Timer extends CountDownTimer {
         this.listener = listener;
     }
 
-    public Timer(long millisInFuture, long countDownInterval, TextView timeLeft, ProgressBar progressBar) {
-        super(millisInFuture, countDownInterval);
+    public Timer(int minutes, long countDownInterval, TextView timeLeft, ProgressBar progressBar) {
+        super(Utility.SecondsToMinutesOnRelease((long)minutes * 1000), countDownInterval);
         this.listener = null;
         this.timeLeft = timeLeft;
         this.progressBar = progressBar;
