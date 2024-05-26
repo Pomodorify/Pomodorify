@@ -233,7 +233,7 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getFocusTime();
 
         timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
-        progressBar.setMax(time);
+        progressBar.setMax((int) Utility.SecondsToMinutesOnRelease(time));
     }
 
     public void setLongBreak(){
@@ -241,7 +241,7 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getLongBreakTime();
 
         timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
-        progressBar.setMax(time);
+        progressBar.setMax((int) Utility.SecondsToMinutesOnRelease(time));
     }
 
     public void setShortBreak(){
@@ -249,7 +249,7 @@ public class Pomodoro extends Fragment{
         int time = getTimes.getShortBreakTime();
 
         timeLeft.setText(Utility.formatMillis(Utility.SecondsToMinutesOnRelease((long)time * 1000)));
-        progressBar.setMax(time);
+        progressBar.setMax((int) Utility.SecondsToMinutesOnRelease(time));
     }
 
     private void enablePauseButton(){
