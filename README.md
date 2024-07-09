@@ -21,9 +21,6 @@ Pomodorify is a productivity-focused mobile application designed to enhance your
   <img src="https://github.com/Pomodorify/Pomodorify/assets/90091855/f65ac842-bde2-4650-9dab-30b0bf004088" alt="Demo Image 3" width="200" height = 400/>
 </p>
 
-
-
-
 **Key Features:**
 
 - **Pomodoro Timer:** Set customizable work and break intervals to structure your work sessions efficiently.
@@ -38,10 +35,6 @@ Pomodorify is a productivity-focused mobile application designed to enhance your
 2. **Set Goals:** Define your task and set timers to begin your focused work session.
 3. **Track Progress:** Monitor your productivity and analyze your performance through detailed statistics.
 4. **Stay Motivated:** Stay motivated and track your progress using statistics.
-
-**Contribute:**
-
-Whether it's bug fixes, feature enhancements, or feedback, your input helps us improve Pomodorify for everyone. Feel free to submit issues, pull requests, or reach out to us directly.
 
 **License:**
 
