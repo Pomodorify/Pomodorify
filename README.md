@@ -13,6 +13,17 @@ Welcome to Pomodorify - Your Pomodoro App for Android!
 
 Pomodorify is a productivity-focused mobile application designed to enhance your workflow and efficiency. Inspired by the Pomodoro Technique, our app offers a simple yet effective way to manage your time and tasks, helping you to stay focused and achieve your goals.
 
+**Demo**
+
+<p align="center">
+  <img src="https://github.com/Pomodorify/Pomodorify/assets/90091855/90dc854b-2616-4d47-b09f-ed1565a32b56" alt="Demo Image 1" width="200" height = 400/>
+  <img src="https://github.com/Pomodorify/Pomodorify/assets/90091855/349b16bf-b712-4642-ae3a-305b531d1852" alt="Demo Image 2" width="200" height = 400/>
+  <img src="https://github.com/Pomodorify/Pomodorify/assets/90091855/f65ac842-bde2-4650-9dab-30b0bf004088" alt="Demo Image 3" width="200" height = 400/>
+</p>
+
+
+
+
 **Key Features:**
 
 - **Pomodoro Timer:** Set customizable work and break intervals to structure your work sessions efficiently.
